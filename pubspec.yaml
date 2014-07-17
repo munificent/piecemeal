@@ -1,7 +1,7 @@
 name: piecemeal
 version: 0.0.1
 author: Bob Nystrom <robert@stuffwithstuff.com>
-description: Basic data structures you 2D game may need.
+description: Basic data structures your 2D game may need.
 homepage: http://journal.stuffwithstuff.com/
 dev_dependencies:
   unittest: any
