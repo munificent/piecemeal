@@ -72,9 +72,13 @@ class Rect extends IterableBase<Vec> {
 
   const Rect.posAndSize(this.pos, this.size);
 
+  Rect.leftTopRightBottom(int left, int top, int right, int bottom)
+      : pos = new Vec(left, top),
+        size = new Vec(right - left, bottom - top);
+
   Rect(int x, int y, int width, int height)
-  : pos = new Vec(x, y),
-    size = new Vec(width, height);
+      : pos = new Vec(x, y),
+        size = new Vec(width, height);
 
   String toString() => '($pos)-($size)';
 
