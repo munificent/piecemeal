@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'dart:math' as math;
 
 import 'vec.dart';
+import '../piecemeal.dart' as piecemeal;
 
 // TODO: Finish porting from C#. Figure out how to handle overloads.
 /// A two-dimensional rectangle.
@@ -103,6 +104,14 @@ class Rect extends IterableBase<Vec> {
     if (rect.bottom > bottom) return false;
 
     return true;
+  }
+
+  /// Returns a new [Vec] that is as near to [vec] as possible while being in
+  /// bounds.
+  Vec clamp(Vec vec) {
+    var x = piecemeal.clamp(left, vec.x, right);
+    var y = piecemeal.clamp(top, vec.y, bottom);
+    return new Vec(x, y);
   }
 
   RectIterator get iterator => new RectIterator(this);
