@@ -162,6 +162,8 @@ class VecBase {
 class Vec extends VecBase {
   static const ZERO = const Vec(0, 0);
 
+  int get hashCode => (x ^ y).hashCode;
+
   const Vec(int x, int y) : super(x, y);
 
   bool operator ==(other) {

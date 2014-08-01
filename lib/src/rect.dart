@@ -6,19 +6,43 @@ import 'dart:math' as math;
 import 'vec.dart';
 import '../piecemeal.dart' as piecemeal;
 
-// TODO: Finish porting from C#. Figure out how to handle overloads.
-/// A two-dimensional rectangle.
+/// A two-dimensional immutable rectangle with integer coordinates.
+///
+/// Many operations treat a [Rect] as a collection of discrete points. In those
+/// cases, the boundaries of the rect are two half-open intervals when
+/// determining which points are inside the rect. For example, consider the
+/// rect whose coordinates are (-1, 1)-(3, 4):
+///
+///      -2 -1  0  1  2  3  4
+///       |  |  |  |  |  |  |
+///     0-
+///     1-   +-----------+
+///     2-   |           |
+///     3-   |           |
+///     4-   +-----------+
+///     5-
+///
+/// It contains all points within that region except for the ones that lie
+/// directly on the right and bottom edges. (It's always right and bottom,
+/// even if the rectangle has negative coordinates.) In the above examples,
+/// that's these points:
+///
+///      -2 -1  0  1  2  3  4
+///       |  |  |  |  |  |  |
+///     0-
+///     1-   *--*--*--*--+
+///     2-   *  *  *  *  |
+///     3-   *  *  *  *  |
+///     4-   +-----------+
+///     5-
+///
+/// This seems a bit odd, but does what you want in almost all respects. For
+/// example, the width of this rect, determined by subtracting the left
+/// coordinate (-1) from the right (3) is 4 and indeed it contains four columns
+/// of points.
 class Rect extends IterableBase<Vec> {
   /// Gets the empty rectangle.
   static const EMPTY = const Rect.posAndSize(Vec.ZERO, Vec.ZERO);
-
-  /// Creates a new rectangle a single row in height, as wide as [size],
-  /// with its top left corner at [pos].
-  static Rect row(Vec pos, int size) => new Rect(pos.x, pos.y, size, 1);
-
-  /// Creates a new rectangle a single column in width, as tall as [size],
-  /// with its top left corner at [pos].
-  static Rect column(Vec pos, int size) => new Rect(pos.x, pos.y, 1, size);
 
   /// Creates a new rectangle that is the intersection of [a] and [b].
   ///
@@ -57,10 +81,12 @@ class Rect extends IterableBase<Vec> {
   int get width => size.x;
   int get height => size.y;
 
-  int get left => x;
-  int get top => y;
-  int get right => x + width;
-  int get bottom => y + height;
+  // Use min and max to handle negative sizes.
+
+  int get left => math.min(x, x + width);
+  int get top => math.min(y, y + height);
+  int get right => math.max(x, x + width);
+  int get bottom => math.max(y, y + height);
 
   Vec get topLeft => new Vec(left, top);
   Vec get topRight => new Vec(right, top);
@@ -80,6 +106,14 @@ class Rect extends IterableBase<Vec> {
   Rect(int x, int y, int width, int height)
       : pos = new Vec(x, y),
         size = new Vec(width, height);
+
+  /// Creates a new rectangle a single row in height, as wide as [size],
+  /// with its top left corner at [pos].
+  Rect.row(int x, int y, int size) : this(x, y, size, 1);
+
+  /// Creates a new rectangle a single column in width, as tall as [size],
+  /// with its top left corner at [pos].
+  Rect.column(int x, int y, int size) : this(x, y, 1, size);
 
   String toString() => '($pos)-($size)';
 
@@ -165,16 +199,18 @@ class Rect extends IterableBase<Vec> {
       return result;
     } else if ((width > 1) && (height == 1)) {
       // A single row.
-      return row(topLeft, width);
+      return new Rect.row(left, top, width);
     } else if ((height >= 1) && (width == 1)) {
       // A single column, or one unit
-      return column(topLeft, height);
+      return new Rect.column(left, top, height);
     }
 
     // Otherwise, the rect doesn't have a positive size, so there's nothing to
     // trace.
     return const <Vec>[];
   }
+
+  // TODO: Equality operator and hashCode.
 }
 
 class RectIterator implements Iterator<Vec> {
