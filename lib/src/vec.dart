@@ -12,6 +12,9 @@ class VecBase {
 
   const VecBase(this.x, this.y);
 
+  /// Gets the area of a [Rect] whose corners are (0, 0) and this Vec.
+  ///
+  /// Returns a negative area if one of the Vec's coordinates are negative.
   int get area => x * y;
 
   /// Gets the rook length of the Vec, which is the number of squares a rook on
@@ -121,10 +124,17 @@ class VecBase {
   /// Gets whether the given vector is within a rectangle from (0,0) to this
   /// vector (half-inclusive).
   bool contains(Vec pos) {
-    if (pos.x < 0) return false;
-    if (pos.x >= x) return false;
-    if (pos.y < 0) return false;
-    if (pos.y >= y) return false;
+    var left = math.min(0, x);
+    if (pos.x < left) return false;
+
+    var right = math.max(0, x);
+    if (pos.x >= right) return false;
+
+    var top = math.min(0, y);
+    if (pos.y < top) return false;
+
+    var bottom = math.max(0, y);
+    if (pos.y >= bottom) return false;
 
     return true;
   }

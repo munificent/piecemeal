@@ -1,3 +1,5 @@
+library piecemeal.test.vec_test;
+
 import 'dart:math' as math;
 
 import 'package:unittest/unittest.dart';
@@ -206,6 +208,13 @@ void main() {
     expect(new Vec(3, 4).contains(new Vec(0, -1)), isFalse);
     expect(new Vec(3, 4).contains(new Vec(3, 1)), isFalse);
     expect(new Vec(3, 4).contains(new Vec(2, 4)), isFalse);
+
+    expect(new Vec(-3, 4).contains(new Vec(-3, 0)), isTrue);
+    expect(new Vec(-3, 4).contains(new Vec(-2, 1)), isTrue);
+    expect(new Vec(-3, 4).contains(new Vec(-4, 0)), isFalse);
+    expect(new Vec(-3, 4).contains(new Vec(0, -1)), isFalse);
+    expect(new Vec(-3, 4).contains(new Vec(0, 1)), isFalse);
+    expect(new Vec(-3, 4).contains(new Vec(-2, 4)), isFalse);
   });
 
   test("offset()", () {

@@ -102,14 +102,14 @@ class Direction extends VecBase implements Vec {
   String toString() {
     switch (this) {
       case NONE: return "NONE";
-      case N: return "S";
-      case NE: return "SW";
-      case E: return "W";
-      case SE: return "NW";
-      case S: return "N";
-      case SW: return "NE";
-      case W: return "E";
-      case NW: return "SE";
+      case N: return "N";
+      case NE: return "NE";
+      case E: return "E";
+      case SE: return "SE";
+      case S: return "S";
+      case SW: return "SW";
+      case W: return "W";
+      case NW: return "NW";
     }
 
     throw "unreachable";
