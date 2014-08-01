@@ -33,10 +33,18 @@ class VecBase {
   /// than this.
   num get length => math.sqrt(lengthSquared);
 
+  /// Scales this Vec by [other].
   Vec operator *(int other) => new Vec(x * other, y * other);
 
+  /// Scales this Vec by [other].
   Vec operator ~/(int other) => new Vec(x ~/ other, y ~/ other);
 
+  /// Adds [other] to this Vec.
+  ///
+  ///  *  If [other] is a [Vec] or [Direction], adds each pair of coordinates.
+  ///  *  If [other] is an [int], adds that value to both coordinates.
+  ///
+  /// Any other type is an error.
   Vec operator +(other) {
     if (other is VecBase) {
       return new Vec(x + other.x, y + other.y);
@@ -47,6 +55,13 @@ class VecBase {
     throw new ArgumentError("Operand must be an int or VecBase.");
   }
 
+  /// Substracts [other] from this Vec.
+  ///
+  ///  *  If [other] is a [Vec] or [Direction], subtracts each pair of
+  ///     coordinates.
+  ///  *  If [other] is an [int], subtracts that value from both coordinates.
+  ///
+  /// Any other type is an error.
   Vec operator -(other) {
     if (other is VecBase) {
       return new Vec(x - other.x, y - other.y);
@@ -114,9 +129,20 @@ class VecBase {
     return true;
   }
 
+  /// Returns a new [Vec] with the absolute value of the coordinates of this
+  /// one.
   Vec abs() => new Vec(x.abs(), y.abs());
 
+  /// Returns a new [Vec] whose coordinates are this one's translated by [x] and
+  /// [y].
+  Vec offset(int x, int y) => new Vec(this.x + x, this.y + y);
+
+  /// Returns a new [Vec] whose coordinates are this one's but with the X
+  /// coordinate translated by [x].
   Vec offsetX(int x) => new Vec(this.x + x, y);
+
+  /// Returns a new [Vec] whose coordinates are this one's but with the Y
+  /// coordinate translated by [y].
   Vec offsetY(int y) => new Vec(x, this.y + y);
 
   String toString() => '$x, $y';
@@ -128,5 +154,8 @@ class Vec extends VecBase {
 
   const Vec(int x, int y) : super(x, y);
 
-  bool operator ==(Vec other) => x == other.x && y == other.y;
+  bool operator ==(other) {
+    if (other is! VecBase) return false;
+    return x == other.x && y == other.y;
+  }
 }
