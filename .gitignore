@@ -1,2 +1,5 @@
 packages
 pubspec.lock
+
+# Ignore IntelliJ stuff.
+.idea

@@ -13,9 +13,15 @@ class Direction extends VecBase implements Vec {
   static const W    = const Direction(-1, 0);
   static const NW   = const Direction(-1, -1);
 
-  static const ALL = const [
-    N, NE, E, SE, S, SW, W, NW
-  ];
+  /// The eight cardinal and intercardinal directions.
+  static const ALL = const [N, NE, E, SE, S, SW, W, NW];
+
+  /// The four cardinal directions: north, south, east, and west.
+  static const CARDINAL = const [N, E, S, W];
+
+  /// The four directions between the cardinal ones: northwest, northeast,
+  /// southwest and southeast.
+  static const INTERCARDINAL = const [NE, SE, SW, NW];
 
   const Direction(int x, int y) : super(x, y);
 
