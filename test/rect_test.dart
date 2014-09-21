@@ -102,6 +102,13 @@ void main() {
     expect(new Rect(1, 2, 3, 4).toString(), equals("(1, 2)-(3, 4)"));
   });
 
+  test("==", () {
+    expect(new Rect(1, 2, 3, 4) == new Rect(1, 2, 3, 4), isTrue);
+    expect(new Rect(1, 2, 3, 4) == new Rect(2, 1, 3, 4), isFalse);
+
+    expect(new Rect(1, 1, 1, 1) == new Vec(0, 1), isFalse);
+  });
+
   // TODO: intersect().
   // TODO: centerIn().
   // TODO: center.

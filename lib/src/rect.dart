@@ -210,7 +210,19 @@ class Rect extends IterableBase<Vec> {
     return const <Vec>[];
   }
 
-  // TODO: Equality operator and hashCode.
+  bool operator==(o) {
+    if (o is! Rect) {
+      return false;
+    }
+    return pos == o.pos && size == o.size;
+  }
+
+  int get hashCode {
+    int posHash = pos.hashCode;
+    int sizeHash = size.hashCode;
+    return ((posHash + sizeHash) << 6) ^ ((posHash + sizeHash) >> 2);
+  }
+
 }
 
 class RectIterator implements Iterator<Vec> {
