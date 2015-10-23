@@ -2,14 +2,14 @@ library piecemeal.test.vec_test;
 
 import 'dart:math' as math;
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'package:piecemeal/piecemeal.dart';
 
 void main() {
-  test("ZERO", () {
-    expect(Vec.ZERO.x, equals(0));
-    expect(Vec.ZERO.y, equals(0));
+  test("zero", () {
+    expect(Vec.zero.x, equals(0));
+    expect(Vec.zero.y, equals(0));
   });
 
   test("coordinates", () {
@@ -65,8 +65,8 @@ void main() {
     });
 
     test("Direction sums the vectors", () {
-      expect(new Vec(2, 3) + Direction.SE, equals(new Vec(3, 4)));
-      expect(new Vec(2, 3) + Direction.NW, equals(new Vec(1, 2)));
+      expect(new Vec(2, 3) + Direction.se, equals(new Vec(3, 4)));
+      expect(new Vec(2, 3) + Direction.nw, equals(new Vec(1, 2)));
     });
 
     test("int offsets both coordinates", () {
@@ -86,8 +86,8 @@ void main() {
     });
 
     test("Direction subtracts the vectors", () {
-      expect(new Vec(2, 3) - Direction.SE, equals(new Vec(1, 2)));
-      expect(new Vec(2, 3) - Direction.NW, equals(new Vec(3, 4)));
+      expect(new Vec(2, 3) - Direction.se, equals(new Vec(1, 2)));
+      expect(new Vec(2, 3) - Direction.nw, equals(new Vec(3, 4)));
     });
 
     test("int offsets both coordinates", () {
@@ -108,9 +108,9 @@ void main() {
     });
 
     test("Direction compares magnitude", () {
-      expect(new Vec(3, 4) < Direction.SE, isFalse);
-      expect(new Vec(1, 1) < Direction.SE, isFalse);
-      expect(new Vec(0, 1) < Direction.SE, isTrue);
+      expect(new Vec(3, 4) < Direction.se, isFalse);
+      expect(new Vec(1, 1) < Direction.se, isFalse);
+      expect(new Vec(0, 1) < Direction.se, isTrue);
     });
 
     test("num compares magnitude to value", () {
@@ -132,9 +132,9 @@ void main() {
     });
 
     test("Direction compares magnitude", () {
-      expect(new Vec(3, 4) > Direction.SE, isTrue);
-      expect(new Vec(1, 1) > Direction.SE, isFalse);
-      expect(new Vec(0, 1) > Direction.SE, isFalse);
+      expect(new Vec(3, 4) > Direction.se, isTrue);
+      expect(new Vec(1, 1) > Direction.se, isFalse);
+      expect(new Vec(0, 1) > Direction.se, isFalse);
     });
 
     test("num compares magnitude to value", () {
@@ -156,9 +156,9 @@ void main() {
     });
 
     test("Direction compares magnitude", () {
-      expect(new Vec(3, 4) <= Direction.SE, isFalse);
-      expect(new Vec(1, 1) <= Direction.SE, isTrue);
-      expect(new Vec(0, 1) <= Direction.SE, isTrue);
+      expect(new Vec(3, 4) <= Direction.se, isFalse);
+      expect(new Vec(1, 1) <= Direction.se, isTrue);
+      expect(new Vec(0, 1) <= Direction.se, isTrue);
     });
 
     test("num compares magnitude to value", () {
@@ -180,9 +180,9 @@ void main() {
     });
 
     test("Direction compares magnitude", () {
-      expect(new Vec(3, 4) >= Direction.SE, isTrue);
-      expect(new Vec(1, 1) >= Direction.SE, isTrue);
-      expect(new Vec(0, 1) >= Direction.SE, isFalse);
+      expect(new Vec(3, 4) >= Direction.se, isTrue);
+      expect(new Vec(1, 1) >= Direction.se, isTrue);
+      expect(new Vec(0, 1) >= Direction.se, isFalse);
     });
 
     test("num compares magnitude to value", () {
@@ -241,8 +241,8 @@ void main() {
     expect(new Vec(2, 1) == new Vec(2, 1), isTrue);
     expect(new Vec(2, 1) == new Vec(1, 2), isFalse);
 
-    expect(new Vec(1, 1) == Direction.SE, isTrue);
-    expect(new Vec(2, 1) == Direction.SE, isFalse);
+    expect(new Vec(1, 1) == Direction.se, isTrue);
+    expect(new Vec(2, 1) == Direction.se, isFalse);
 
     // Other types.
     expect(new Vec(0, 0) == 0, isFalse);

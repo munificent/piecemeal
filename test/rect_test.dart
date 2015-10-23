@@ -2,16 +2,16 @@ library piecemeal.test.rect_test;
 
 import 'dart:math' as math;
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'package:piecemeal/piecemeal.dart';
 
 void main() {
   test("EMPTY", () {
-    expect(Rect.EMPTY.x, equals(0));
-    expect(Rect.EMPTY.y, equals(0));
-    expect(Rect.EMPTY.width, equals(0));
-    expect(Rect.EMPTY.height, equals(0));
+    expect(Rect.empty.x, equals(0));
+    expect(Rect.empty.y, equals(0));
+    expect(Rect.empty.width, equals(0));
+    expect(Rect.empty.height, equals(0));
   });
 
   test("coordinates", () {

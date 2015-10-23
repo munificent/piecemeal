@@ -6,7 +6,7 @@ import 'rect.dart';
 import 'vec.dart';
 
 /// A singleton instance of Rng globally available.
-final rng = new Rng(new DateTime.now().millisecondsSinceEpoch);
+final Rng rng = new Rng(new DateTime.now().millisecondsSinceEpoch);
 
 /// The Random Number God: deliverer of good and ill fortune alike.
 class Rng {
@@ -87,7 +87,7 @@ class Rng {
   /// Now flip the left half of the triangle (from 1 to 3) vertically and move
   /// it over to the right so that we have a square.
   ///
-  ///         +-------+
+  ///         .-------.
   ///         |       V
   ///         |
   ///         |   R L L L

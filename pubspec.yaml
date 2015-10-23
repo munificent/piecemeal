@@ -1,7 +1,7 @@
 name: piecemeal
-version: 0.1.1
+version: 0.2.0
 author: Bob Nystrom <robert@stuffwithstuff.com>
 description: Basic data structures your 2D game may need.
 homepage: https://github.com/munificent/piecemeal
 dev_dependencies:
-  unittest: any
+  test: any

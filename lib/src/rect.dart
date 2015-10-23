@@ -42,7 +42,7 @@ import '../piecemeal.dart' as piecemeal;
 /// of points.
 class Rect extends IterableBase<Vec> {
   /// Gets the empty rectangle.
-  static const EMPTY = const Rect.posAndSize(Vec.ZERO, Vec.ZERO);
+  static const empty = const Rect.posAndSize(Vec.zero, Vec.zero);
 
   /// Creates a new rectangle that is the intersection of [a] and [b].
   ///

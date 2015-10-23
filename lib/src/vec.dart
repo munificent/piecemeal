@@ -160,7 +160,7 @@ class VecBase {
 
 /// A two-dimensional point.
 class Vec extends VecBase {
-  static const ZERO = const Vec(0, 0);
+  static const zero = const Vec(0, 0);
 
   int get hashCode => (x ^ y).hashCode;
 
