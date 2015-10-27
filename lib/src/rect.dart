@@ -4,7 +4,6 @@ import 'dart:collection';
 import 'dart:math' as math;
 
 import 'vec.dart';
-import '../piecemeal.dart' as piecemeal;
 
 /// A two-dimensional immutable rectangle with integer coordinates.
 ///
@@ -122,7 +121,10 @@ class Rect extends IterableBase<Vec> {
       width + (distance * 2), height + (distance * 2));
   }
 
-  bool contains(Vec point) {
+  bool contains(Object object) {
+    if (object is! Vec) return false;
+
+    var point = object as Vec;
     if (point.x < pos.x) return false;
     if (point.x >= pos.x + size.x) return false;
     if (point.y < pos.y) return false;
@@ -143,8 +145,8 @@ class Rect extends IterableBase<Vec> {
   /// Returns a new [Vec] that is as near to [vec] as possible while being in
   /// bounds.
   Vec clamp(Vec vec) {
-    var x = piecemeal.clamp(left, vec.x, right);
-    var y = piecemeal.clamp(top, vec.y, bottom);
+    var x = vec.x.clamp(left, right);
+    var y = vec.y.clamp(top, bottom);
     return new Vec(x, y);
   }
 

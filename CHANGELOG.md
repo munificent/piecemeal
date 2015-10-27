@@ -1,3 +1,8 @@
+## 0.2.1
+
+* Make strong mode clean.
+* Fix bug in `Rect.clamp()`.
+
 ## 0.2.0
 
 * Make constants `lowerCamelCase`.

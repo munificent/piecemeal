@@ -1,7 +1,5 @@
 library piecemeal.test.rect_test;
 
-import 'dart:math' as math;
-
 import 'package:test/test.dart';
 
 import 'package:piecemeal/piecemeal.dart';
@@ -108,7 +106,29 @@ void main() {
   // TODO: inflate().
   // TODO: contains().
   // TODO: containsRect().
-  // TODO: clamp().
+
+  test(".clamp()", () {
+    var rect = new Rect(1, 2, 3, 4);
+
+    // Inside.
+    expect(rect.clamp(new Vec(2, 3)), equals(new Vec(2, 3)));
+
+    // Left.
+    expect(rect.clamp(new Vec(0, 3)), equals(new Vec(1, 3)));
+
+    // Right.
+    expect(rect.clamp(new Vec(10, 3)), equals(new Vec(4, 3)));
+
+    // Top.
+    expect(rect.clamp(new Vec(2, 0)), equals(new Vec(2, 2)));
+
+    // Bottom.
+    expect(rect.clamp(new Vec(2, 8)), equals(new Vec(2, 6)));
+
+    // Corner.
+    expect(rect.clamp(new Vec(20, 30)), equals(new Vec(4, 6)));
+  });
+
   // TODO: iterator.
   // TODO: distanceTo().
   // TODO: trace().

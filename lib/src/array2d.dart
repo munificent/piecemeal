@@ -76,18 +76,16 @@ class Array2D<T> extends IterableBase<T> {
   /// type [T].
   void generate(Function generator) {
     // Wrap the generator in a function with a known signature.
-    var actualGenerator;
-    if (generator is _NullaryGenerator) {
-      actualGenerator = (_) => generator();
-    } else if (generator is _VecGenerator) {
-      // OK as-is.
-      actualGenerator = generator;
-    } else if (generator is _CoordGenerator) {
-      actualGenerator = (pos) => generator(pos.x, pos.y);
+    if (generator is _NullaryGenerator<T>) {
+      for (var pos in bounds) this[pos] = generator();
+    } else if (generator is _VecGenerator<T>) {
+      for (var pos in bounds) this[pos] = generator(pos);
+    } else if (generator is _CoordGenerator<T>) {
+      for (var pos in bounds) this[pos] = generator(pos.x, pos.y);
+    } else {
+      throw new ArgumentError(
+          "Generator must take zero arguments, one Vec, or two ints.");
     }
-
-    // Run the generator on each element.
-    for (var pos in bounds) this[pos] = actualGenerator(pos);
   }
 
   Iterator<T> get iterator => _elements.iterator;
