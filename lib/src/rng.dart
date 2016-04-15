@@ -1,5 +1,3 @@
-library piecemeal.src.rng;
-
 import 'dart:math' as math;
 
 import 'rect.dart';

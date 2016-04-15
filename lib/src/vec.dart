@@ -1,5 +1,3 @@
-library piecemeal.src.vec;
-
 import 'dart:math' as math;
 
 /// Shared base class of [Vec] and [Direction]. We do this instead of having

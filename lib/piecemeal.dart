@@ -1,5 +1,3 @@
-library piecemeal;
-
 export 'src/array2d.dart';
 export 'src/direction.dart';
 export 'src/rect.dart';

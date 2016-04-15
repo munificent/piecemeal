@@ -1,5 +1,3 @@
-library piecemeal.test.vec_test;
-
 import 'dart:math' as math;
 
 import 'package:test/test.dart';

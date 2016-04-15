@@ -1,5 +1,3 @@
-library piecemeal.src.direction;
-
 import 'vec.dart';
 
 class Direction extends VecBase implements Vec {

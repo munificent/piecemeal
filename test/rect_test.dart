@@ -1,11 +1,9 @@
-library piecemeal.test.rect_test;
-
 import 'package:test/test.dart';
 
 import 'package:piecemeal/piecemeal.dart';
 
 void main() {
-  test("EMPTY", () {
+  test("empty", () {
     expect(Rect.empty.x, equals(0));
     expect(Rect.empty.y, equals(0));
     expect(Rect.empty.width, equals(0));

@@ -1,5 +1,3 @@
-library piecemeal.src.array2d;
-
 import 'dart:collection';
 
 import 'rect.dart';
