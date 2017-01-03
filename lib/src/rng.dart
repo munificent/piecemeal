@@ -40,14 +40,25 @@ class Rng {
     return _random.nextInt(max - minOrMax) + minOrMax;
   }
 
+  /// Gets a random floating-point value within the given range.
+  double float([double minOrMax, double max]) {
+    if (minOrMax == null) {
+      return _random.nextDouble();
+    } else if (max == null) {
+      return _random.nextDouble() * minOrMax;
+    } else {
+      return _random.nextDouble() * (max - minOrMax) + minOrMax;
+    }
+  }
+
   /// Returns `true` if a random int chosen between 1 and chance was 1.
   bool oneIn(int chance) => range(chance) == 0;
 
   /// Gets a random item from the given list.
-  item(List items) => items[range(items.length)];
+  dynamic/*=T*/ item/*<T>*/(List/*<T>*/ items) => items[range(items.length)];
 
   /// Removes a random item from the given list.
-  take(List items) {
+  dynamic/*=T*/ take/*<T>*/(List/*<T>*/ items) {
     final index = range(items.length);
     final item = items[index];
     items.removeRange(index, 1);

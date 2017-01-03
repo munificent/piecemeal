@@ -154,7 +154,7 @@ class Rect extends IterableBase<Vec> {
   /// length that a corridor would have to be to go from one Rect to the other.
   /// If the two Rects are adjacent, returns zero. If they overlap, returns -1.
   int distanceTo(Rect other) {
-    var vertical;
+    int vertical;
     if (top >= other.bottom) {
       vertical = top - other.bottom;
     } else if (bottom <= other.top) {
@@ -163,7 +163,7 @@ class Rect extends IterableBase<Vec> {
       vertical = -1;
     }
 
-    var horizontal;
+    int horizontal;
     if (left >= other.right) {
       horizontal = left - other.right;
     } else if (right <= other.left) {

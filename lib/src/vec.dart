@@ -46,7 +46,7 @@ class VecBase {
   ///  *  If [other] is an [int], adds that value to both coordinates.
   ///
   /// Any other type is an error.
-  Vec operator +(other) {
+  Vec operator +(Object other) {
     if (other is VecBase) {
       return new Vec(x + other.x, y + other.y);
     } else if (other is int) {
@@ -63,7 +63,7 @@ class VecBase {
   ///  *  If [other] is an [int], subtracts that value from both coordinates.
   ///
   /// Any other type is an error.
-  Vec operator -(other) {
+  Vec operator -(Object other) {
     if (other is VecBase) {
       return new Vec(x - other.x, y - other.y);
     } else if (other is int) {
@@ -74,7 +74,7 @@ class VecBase {
   }
 
   /// Returns `true` if the magnitude of this vector is greater than [other].
-  bool operator >(other) {
+  bool operator >(Object other) {
     if (other is VecBase) {
       return lengthSquared > other.lengthSquared;
     } else if (other is num) {
@@ -86,7 +86,7 @@ class VecBase {
 
   /// Returns `true` if the magnitude of this vector is greater than or equal
   /// to [other].
-  bool operator >=(other) {
+  bool operator >=(Object other) {
     if (other is VecBase) {
       return lengthSquared >= other.lengthSquared;
     } else if (other is num) {
@@ -97,7 +97,7 @@ class VecBase {
   }
 
   /// Returns `true` if the magnitude of this vector is less than [other].
-  bool operator <(other) {
+  bool operator <(Object other) {
     if (other is VecBase) {
       return lengthSquared < other.lengthSquared;
     } else if (other is num) {
@@ -109,7 +109,7 @@ class VecBase {
 
   /// Returns `true` if the magnitude of this vector is less than or equal to
   /// [other].
-  bool operator <=(other) {
+  bool operator <=(Object other) {
     if (other is VecBase) {
       return lengthSquared <= other.lengthSquared;
     } else if (other is num) {
@@ -164,8 +164,11 @@ class Vec extends VecBase {
 
   const Vec(int x, int y) : super(x, y);
 
-  bool operator ==(other) {
-    if (other is! VecBase) return false;
-    return x == other.x && y == other.y;
+  bool operator ==(Object other) {
+    if (other is VecBase) {
+      return x == other.x && y == other.y;
+    }
+
+    return false;
   }
 }

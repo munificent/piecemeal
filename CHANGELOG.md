@@ -1,3 +1,9 @@
+## 0.3.0
+
+* Get rid of implicit casts and dynamic.
+* Make Rng.item() and Rng.take() generic methods.
+* Add Rng.float().
+
 ## 0.2.1
 
 * Make strong mode clean.

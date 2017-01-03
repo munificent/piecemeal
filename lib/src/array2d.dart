@@ -26,7 +26,7 @@ class Array2D<T> extends IterableBase<T> {
 
   /// Creates a new array with [width], [height] elements initialized to [value]
   /// (or `null` if [value] is omitted).
-  Array2D(width, height, [T value])
+  Array2D(int width, int height, [T value])
       : width = width,
         height = height,
         _elements = new List<T>.filled(width * height, value);
@@ -37,7 +37,7 @@ class Array2D<T> extends IterableBase<T> {
   /// The generator function can either take no parameters, one [Vec]
   /// parameter, or two [int] parameters (`x` and `y`) and returns a value of
   /// type [T].
-  Array2D.generated(width, height, Function generator)
+  Array2D.generated(int width, int height, Function generator)
       : width = width,
         height = height,
         _elements = new List<T>.filled(width * height, null) {
