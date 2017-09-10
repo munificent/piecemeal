@@ -143,8 +143,8 @@ class Rect extends IterableBase<Vec> {
   /// Returns a new [Vec] that is as near to [vec] as possible while being in
   /// bounds.
   Vec clamp(Vec vec) {
-    var x = vec.x.clamp(left, right);
-    var y = vec.y.clamp(top, bottom);
+    var x = vec.x.clamp(left, right).toInt();
+    var y = vec.y.clamp(top, bottom).toInt();
     return new Vec(x, y);
   }
 

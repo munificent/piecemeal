@@ -55,10 +55,10 @@ class Rng {
   bool oneIn(int chance) => range(chance) == 0;
 
   /// Gets a random item from the given list.
-  dynamic/*=T*/ item/*<T>*/(List/*<T>*/ items) => items[range(items.length)];
+  T item<T>(List<T> items) => items[range(items.length)];
 
   /// Removes a random item from the given list.
-  dynamic/*=T*/ take/*<T>*/(List/*<T>*/ items) {
+  T take<T>(List<T> items) {
     final index = range(items.length);
     final item = items[index];
     items.removeRange(index, 1);

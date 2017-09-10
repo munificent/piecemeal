@@ -1,3 +1,8 @@
+## 0.3.1
+
+* Fix type error.
+* Use real generic method syntax.
+
 ## 0.3.0
 
 * Get rid of implicit casts and dynamic.
