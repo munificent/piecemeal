@@ -1,5 +1,5 @@
 name: piecemeal
-version: 0.3.0
+version: 0.3.1
 author: Bob Nystrom <robert@stuffwithstuff.com>
 description: Basic data structures your 2D game may need.
 homepage: https://github.com/munificent/piecemeal
