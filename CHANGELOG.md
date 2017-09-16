@@ -1,3 +1,7 @@
+## 0.3.2
+
+* Add `Rect.offset()`.
+
 ## 0.3.1
 
 * Fix type error.
@@ -6,8 +10,8 @@
 ## 0.3.0
 
 * Get rid of implicit casts and dynamic.
-* Make Rng.item() and Rng.take() generic methods.
-* Add Rng.float().
+* Make `Rng.item()` and `Rng.take()` generic methods.
+* Add `Rng.float()`.
 
 ## 0.2.1
 
@@ -21,4 +25,4 @@
 
 ## 0.1.1
 
-* `CARDINAL` and `INTERCARDINAL` direction lists to `Direction`.
+* Add `CARDINAL` and `INTERCARDINAL` direction lists to `Direction`.

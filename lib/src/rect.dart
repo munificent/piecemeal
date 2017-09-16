@@ -119,6 +119,9 @@ class Rect extends IterableBase<Vec> {
       width + (distance * 2), height + (distance * 2));
   }
 
+  Rect offset(int x, int y) =>
+      new Rect(this.x + x, this.y + y, width, height);
+
   bool contains(Object object) {
     if (object is! Vec) return false;
 
