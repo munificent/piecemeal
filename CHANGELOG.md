@@ -1,3 +1,7 @@
+## 0.3.3
+
+* Add `Rng.percent()`.
+
 ## 0.3.2
 
 * Add `Rect.offset()`.

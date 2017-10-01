@@ -127,6 +127,14 @@ void main() {
     expect(rect.clamp(new Vec(20, 30)), equals(new Vec(4, 6)));
   });
 
+  test(".offset()", () {
+    var rect = new Rect(1, 2, 3, 4);
+
+    expect(rect.offset(5, 6), equals(new Rect(6, 8, 3, 4)));
+
+    expect(rect.offset(-5, -6), equals(new Rect(-4, -4, 3, 4)));
+  });
+
   // TODO: iterator.
   // TODO: distanceTo().
   // TODO: trace().

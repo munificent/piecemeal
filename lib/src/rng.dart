@@ -54,16 +54,14 @@ class Rng {
   /// Returns `true` if a random int chosen between 1 and chance was 1.
   bool oneIn(int chance) => range(chance) == 0;
 
+  /// Returns `true` [chance] percent of the time.
+  bool percent(int chance) => range(100) < chance;
+
   /// Gets a random item from the given list.
   T item<T>(List<T> items) => items[range(items.length)];
 
   /// Removes a random item from the given list.
-  T take<T>(List<T> items) {
-    final index = range(items.length);
-    final item = items[index];
-    items.removeRange(index, 1);
-    return item;
-  }
+  T take<T>(List<T> items) => items.removeAt(range(items.length));
 
   /// Gets a random [Vec] within the given [Rect] (half-inclusive).
   Vec vecInRect(Rect rect) {
