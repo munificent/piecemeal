@@ -17,18 +17,17 @@ typedef T _CoordGenerator<T>(int x, int y);
 /// order.
 class Array2D<T> extends IterableBase<T> {
   /// The number of elements in a row of the array.
-  final int width;
+  int get width => bounds.width;
 
   /// The number of elements in a column of the array.
-  final int height;
+  int get height => bounds.height;
 
   final List<T> _elements;
 
   /// Creates a new array with [width], [height] elements initialized to [value]
   /// (or `null` if [value] is omitted).
   Array2D(int width, int height, [T value])
-      : width = width,
-        height = height,
+      : bounds = new Rect(0, 0, width, height),
         _elements = new List<T>.filled(width * height, value);
 
   /// Creates a new array with [width], [height] elements initialized to the
@@ -38,8 +37,7 @@ class Array2D<T> extends IterableBase<T> {
   /// parameter, or two [int] parameters (`x` and `y`) and returns a value of
   /// type [T].
   Array2D.generated(int width, int height, Function generator)
-      : width = width,
-        height = height,
+      : bounds = new Rect(0, 0, width, height),
         _elements = new List<T>.filled(width * height, null) {
     generate(generator);
   }
@@ -53,10 +51,12 @@ class Array2D<T> extends IterableBase<T> {
   }
 
   /// A [Rect] whose bounds cover the full range of valid element indexes.
-  Rect get bounds => new Rect(0, 0, width, height);
+  final Rect bounds;
+  // Store the bounds rect instead of simply the width and height because this
+  // is accessed very frequently and avoids allocating a new Rect each time.
 
   /// The size of the array.
-  Vec  get size => new Vec(width, height);
+  Vec  get size => bounds.size;
 
   /// Gets the element in the array at [x], [y].
   T get(int x, int y) => _elements[y * width + x];

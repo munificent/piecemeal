@@ -1,3 +1,7 @@
+## 0.3.4
+
+* Add Line and Circle classes.
+
 ## 0.3.3
 
 * Add `Rng.percent()`.
