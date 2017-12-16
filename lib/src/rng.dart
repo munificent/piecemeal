@@ -8,10 +8,16 @@ final Rng rng = new Rng(new DateTime.now().millisecondsSinceEpoch);
 
 /// The Random Number God: deliverer of good and ill fortune alike.
 class Rng {
-  final math.Random _random;
+  math.Random _random;
 
-  Rng(int seed)
-      : _random = new math.Random(seed);
+  Rng(int seed) {
+    setSeed(seed);
+  }
+
+  /// Resets the random number generator's internal state to [seed].
+  void setSeed(int seed) {
+    _random = new math.Random(seed);
+  }
 
   /// Gets a random int within a given range. If [max] is given, then it is
   /// in the range `[minOrMax, max)`. Otherwise, it is `[0, minOrMax)`. In
@@ -62,6 +68,11 @@ class Rng {
 
   /// Removes a random item from the given list.
   T take<T>(List<T> items) => items.removeAt(range(items.length));
+
+  /// Randomly re-orders elements in [items].
+  void shuffle<T>(List<T> items) {
+    items.shuffle(_random);
+  }
 
   /// Gets a random [Vec] within the given [Rect] (half-inclusive).
   Vec vecInRect(Rect rect) {

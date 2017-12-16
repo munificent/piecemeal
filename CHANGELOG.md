@@ -1,3 +1,7 @@
+## 0.3.5
+
+* Add `Rng.shuffle()` and `Rng.setSeed()`.
+
 ## 0.3.4
 
 * Add Line and Circle classes.
