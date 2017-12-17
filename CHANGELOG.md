@@ -1,3 +1,7 @@
+## 0.3.6
+
+* Add `Array2D.fill()`.
+
 ## 0.3.5
 
 * Add `Rng.shuffle()` and `Rng.setSeed()`.

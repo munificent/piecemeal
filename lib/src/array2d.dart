@@ -66,6 +66,11 @@ class Array2D<T> extends IterableBase<T> {
     _elements[y * width + x] = value;
   }
 
+  /// Sets every element to [value].
+  void fill(T value) {
+    _elements.fillRange(0, _elements.length, value);
+  }
+
   /// Evaluates [generator] on each position in the array and sets the element
   /// at that position to the result.
   ///
