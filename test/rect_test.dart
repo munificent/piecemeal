@@ -98,6 +98,39 @@ void main() {
     expect(new Rect(1, 2, 3, 4).toString(), equals("(1, 2)-(3, 4)"));
   });
 
+  group(".trace()", () {
+
+    checkOutline(Rect rect, Iterable<Vec> points) {
+      Set<Vec> outline = new Set.from(points);
+      for (var coord in rect.trace()) {
+        expect(coord, isIn(outline));
+        // we only want to iterate over each once
+        outline.remove(coord);
+      }
+      // need to hit every point
+      expect(outline, isEmpty);
+    }
+
+    test("iterates over every point in the outline exactly once", () {
+      checkOutline(new Rect(1, 2, 3, 4), [
+        new Vec(1, 2), new Vec(2, 2), new Vec(3, 2),
+        new Vec(1, 3),                new Vec(3, 3),
+        new Vec(1, 4),                new Vec(3, 4),
+        new Vec(1, 5), new Vec(2, 5), new Vec(3, 5)
+      ]);
+    });
+
+    test("doesn't iterate over points in row Rects twice", () {
+      Rect row = new Rect.row(1, 2, 3);
+      checkOutline(row, row); // make sure that the outline and interior are the same
+    });
+
+    test("doesn't iterate over points in column Rects twice", () {
+      Rect col = new Rect.column(1, 2, 3);
+      checkOutline(col, col);
+    });
+  });
+
   // TODO: intersect().
   // TODO: centerIn().
   // TODO: center.
@@ -137,5 +170,4 @@ void main() {
 
   // TODO: iterator.
   // TODO: distanceTo().
-  // TODO: trace().
 }

@@ -183,34 +183,7 @@ class Rect extends IterableBase<Vec> {
 
   /// Iterates over the points along the edge of the Rect.
   Iterable<Vec> trace() {
-    if ((width > 1) && (height > 1)) {
-      // TODO(bob): Implement an iterator class here if building the list is
-      // slow.
-      // Trace all four sides.
-      final result = <Vec>[];
-
-      for (var x = left; x < right; x++) {
-        result.add(new Vec(x, top));
-        result.add(new Vec(x, bottom - 1));
-      }
-
-      for (var y = top + 1; y < bottom - 1; y++) {
-        result.add(new Vec(left, y));
-        result.add(new Vec(right - 1, y));
-      }
-
-      return result;
-    } else if ((width > 1) && (height == 1)) {
-      // A single row.
-      return new Rect.row(left, top, width);
-    } else if ((height >= 1) && (width == 1)) {
-      // A single column, or one unit
-      return new Rect.column(left, top, height);
-    }
-
-    // Otherwise, the rect doesn't have a positive size, so there's nothing to
-    // trace.
-    return const <Vec>[];
+    return new _RectTracer(this);
   }
 
   // TODO: Equality operator and hashCode.
@@ -238,3 +211,79 @@ class RectIterator implements Iterator<Vec> {
    return  _y < _rect.bottom;
   }
 }
+
+class _RectTracer extends Object with IterableMixin<Vec> {
+  final Rect _rect;
+  _RectTracer(this._rect);
+
+  Iterator<Vec> get iterator {
+    if (_rect.width.abs() > 2 && _rect.height.abs() > 2) {
+      // the rect has points in the middle that are not part of its outline.
+      return new _RectOutlineIterator(_rect);
+    } else {
+      // all the points in the rect are contained in its outline.
+      return _rect.iterator;
+    }
+  }
+}
+
+class _RectOutlineIterator implements Iterator<Vec> {
+  final Rect _rect;
+  // Values are produced two at a time, so we store both the current value, and
+  // the next (_pending) value we're going to return.
+  Vec _current;
+  Vec _pending;
+  // Are we moving over the rectangle horizontally or vertically?
+  bool _horizontal;
+  // Our position along the x or y axis.
+  int _pos;
+  _RectOutlineIterator(this._rect) {
+    assert(_rect.width.abs() > 1);
+    assert(_rect.height.abs() > 1);
+
+    _pending = null;
+    _current = null;
+    _horizontal = true;
+    _pos = _rect.left;
+  }
+
+  Vec get current => _current;
+
+  bool moveNext() {
+    if (_pending != null) {
+      _current = _pending;
+      _pending = null;
+      return true;
+    }
+    return _horizontal ? moveNextHorz_() : moveNextVert_();
+  }
+
+  bool moveNextHorz_() {
+    if (_pos == _rect.right) {
+      // Finished iterating horizontally.
+      _pos = _rect.top+1;
+      _horizontal = false;
+      return moveNextVert_();
+    } else {
+      _current = new Vec(_pos, _rect.top);
+      _pending = new Vec(_pos, _rect.bottom-1);
+      ++_pos;
+    }
+    return true;
+  }
+
+  bool moveNextVert_() {
+    if (_pos == _rect.bottom - 1) {
+      // Completely done
+      _current = null;
+      return false;
+    }
+    _current = new Vec(_rect.left, _pos);
+    _pending = new Vec(_rect.right-1, _pos);
+    ++_pos;
+    return true;
+  }
+
+}
+
+
