@@ -6,4 +6,4 @@ homepage: https://github.com/munificent/piecemeal
 dev_dependencies:
   test: any
 environment:
-  sdk: ">=1.24.0 <2.0.0"
+  sdk: ">=2.0.0-dev.62.0 <3.0.0"

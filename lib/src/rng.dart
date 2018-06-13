@@ -4,7 +4,7 @@ import 'rect.dart';
 import 'vec.dart';
 
 /// A singleton instance of Rng globally available.
-final Rng rng = new Rng(new DateTime.now().millisecondsSinceEpoch);
+final Rng rng = Rng(DateTime.now().millisecondsSinceEpoch);
 
 /// The Random Number God: deliverer of good and ill fortune alike.
 class Rng {
@@ -16,7 +16,7 @@ class Rng {
 
   /// Resets the random number generator's internal state to [seed].
   void setSeed(int seed) {
-    _random = new math.Random(seed);
+    _random = math.Random(seed);
   }
 
   /// Gets a random int within a given range. If [max] is given, then it is
@@ -76,7 +76,7 @@ class Rng {
 
   /// Gets a random [Vec] within the given [Rect] (half-inclusive).
   Vec vecInRect(Rect rect) {
-    return new Vec(range(rect.left, rect.right), range(rect.top, rect.bottom));
+    return Vec(range(rect.left, rect.right), range(rect.top, rect.bottom));
   }
 
   /// Gets a random number centered around [center] with [range] (inclusive)
@@ -119,8 +119,9 @@ class Rng {
   /// point is in, and then remap the point back out to the original triangle.
   /// The result is the *x* coordinate of the point in the original triangle.
   int triangleInt(int center, int range) {
-    if (range < 0) throw new ArgumentError(
-        "The argument \"range\" must be zero or greater.");
+    if (range < 0) {
+      throw ArgumentError("The argument \"range\" must be zero or greater.");
+    }
 
     // Pick a point in the square.
     int x = inclusive(range);

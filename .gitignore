@@ -1,6 +1,6 @@
+.dart_tool/
 .packages
-packages
-.pub
+.pub/
 
 # Ignore IntelliJ stuff.
-.idea
+.idea/

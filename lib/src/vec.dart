@@ -35,10 +35,10 @@ class VecBase {
   num get length => math.sqrt(lengthSquared);
 
   /// Scales this Vec by [other].
-  Vec operator *(int other) => new Vec(x * other, y * other);
+  Vec operator *(int other) => Vec(x * other, y * other);
 
   /// Scales this Vec by [other].
-  Vec operator ~/(int other) => new Vec(x ~/ other, y ~/ other);
+  Vec operator ~/(int other) => Vec(x ~/ other, y ~/ other);
 
   /// Adds [other] to this Vec.
   ///
@@ -48,12 +48,12 @@ class VecBase {
   /// Any other type is an error.
   Vec operator +(Object other) {
     if (other is VecBase) {
-      return new Vec(x + other.x, y + other.y);
+      return Vec(x + other.x, y + other.y);
     } else if (other is int) {
-      return new Vec(x + other, y + other);
+      return Vec(x + other, y + other);
     }
 
-    throw new ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or VecBase.");
   }
 
   /// Substracts [other] from this Vec.
@@ -65,12 +65,12 @@ class VecBase {
   /// Any other type is an error.
   Vec operator -(Object other) {
     if (other is VecBase) {
-      return new Vec(x - other.x, y - other.y);
+      return Vec(x - other.x, y - other.y);
     } else if (other is int) {
-      return new Vec(x - other, y - other);
+      return Vec(x - other, y - other);
     }
 
-    throw new ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or VecBase.");
   }
 
   /// Returns `true` if the magnitude of this vector is greater than [other].
@@ -81,7 +81,7 @@ class VecBase {
       return lengthSquared > other * other;
     }
 
-    throw new ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or VecBase.");
   }
 
   /// Returns `true` if the magnitude of this vector is greater than or equal
@@ -93,7 +93,7 @@ class VecBase {
       return lengthSquared >= other * other;
     }
 
-    throw new ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or VecBase.");
   }
 
   /// Returns `true` if the magnitude of this vector is less than [other].
@@ -104,7 +104,7 @@ class VecBase {
       return lengthSquared < other * other;
     }
 
-    throw new ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or VecBase.");
   }
 
   /// Returns `true` if the magnitude of this vector is less than or equal to
@@ -116,7 +116,7 @@ class VecBase {
       return lengthSquared <= other * other;
     }
 
-    throw new ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or VecBase.");
   }
 
   /// Gets whether the given vector is within a rectangle from (0,0) to this
@@ -139,26 +139,26 @@ class VecBase {
 
   /// Returns a new [Vec] with the absolute value of the coordinates of this
   /// one.
-  Vec abs() => new Vec(x.abs(), y.abs());
+  Vec abs() => Vec(x.abs(), y.abs());
 
   /// Returns a new [Vec] whose coordinates are this one's translated by [x] and
   /// [y].
-  Vec offset(int x, int y) => new Vec(this.x + x, this.y + y);
+  Vec offset(int x, int y) => Vec(this.x + x, this.y + y);
 
   /// Returns a new [Vec] whose coordinates are this one's but with the X
   /// coordinate translated by [x].
-  Vec offsetX(int x) => new Vec(this.x + x, y);
+  Vec offsetX(int x) => Vec(this.x + x, y);
 
   /// Returns a new [Vec] whose coordinates are this one's but with the Y
   /// coordinate translated by [y].
-  Vec offsetY(int y) => new Vec(x, this.y + y);
+  Vec offsetY(int y) => Vec(x, this.y + y);
 
   String toString() => '$x, $y';
 }
 
 /// A two-dimensional point.
 class Vec extends VecBase {
-  static const zero = const Vec(0, 0);
+  static const zero = Vec(0, 0);
 
   int get hashCode => (x ^ y).hashCode;
 

@@ -12,9 +12,9 @@ class Line extends IterableBase<Vec> {
 
   Line(this.start, this.end);
 
-  Iterator<Vec> get iterator => new _LineIterator(start, end);
+  Iterator<Vec> get iterator => _LineIterator(start, end);
 
-  int get length => throw new UnsupportedError("Line iteration is unbounded.");
+  int get length => throw UnsupportedError("Line iteration is unbounded.");
 }
 
 class _LineIterator implements Iterator<Vec> {
@@ -43,8 +43,8 @@ class _LineIterator implements Iterator<Vec> {
     var delta = _end - _start;
 
     // Figure which octant the line is in and increment appropriately.
-    _primaryStep = new Vec(delta.x.sign, 0);
-    _secondaryStep = new Vec(0, delta.y.sign);
+    _primaryStep = Vec(delta.x.sign, 0);
+    _secondaryStep = Vec(0, delta.y.sign);
 
     // Discard the signs now that they are accounted for.
     delta = delta.abs();

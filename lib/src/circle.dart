@@ -16,7 +16,7 @@ class Circle extends IterableBase<Vec> {
   final int radius;
 
   Circle(this.center, this.radius) {
-    if (radius < 0) throw new ArgumentError("The radius cannot be negative.");
+    if (radius < 0) throw ArgumentError("The radius cannot be negative.");
   }
 
   /// Gets whether [pos] is in the outermost edge of the circle.
@@ -29,11 +29,10 @@ class Circle extends IterableBase<Vec> {
     return leadingEdge;
   }
 
-  Iterator<Vec> get iterator => new _CircleIterator(this, edge: false);
+  Iterator<Vec> get iterator => _CircleIterator(this, edge: false);
 
   /// Traces the outside edge of the circle.
-  Iterable<Vec> get edge =>
-      new _CircleIterable(new _CircleIterator(this, edge: true));
+  Iterable<Vec> get edge => _CircleIterable(_CircleIterator(this, edge: true));
 }
 
 class _CircleIterable extends IterableBase<Vec> {
@@ -51,8 +50,8 @@ class _CircleIterator implements Iterator<Vec> {
 
   factory _CircleIterator(Circle circle, {bool edge}) {
     var size = circle.radius + circle.radius + 1;
-    var bounds = new Rect(-circle.radius, -circle.radius, size, size);
-    return new _CircleIterator._(circle, bounds.iterator, edge: edge);
+    var bounds = Rect(-circle.radius, -circle.radius, size, size);
+    return _CircleIterator._(circle, bounds.iterator, edge: edge);
   }
 
   _CircleIterator._(this._circle, this._boundsIterator, {bool edge})
@@ -75,7 +74,7 @@ class _CircleIterator implements Iterator<Vec> {
   }
 }
 
-const _radiiSquared = const [0, 2, 5, 10, 18, 26, 38];
+const _radiiSquared = [0, 2, 5, 10, 18, 26, 38];
 
 int _radiusSquared(int radius) {
   // If small enough, use the tuned radius to look best.

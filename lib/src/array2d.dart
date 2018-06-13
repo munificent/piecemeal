@@ -27,8 +27,8 @@ class Array2D<T> extends IterableBase<T> {
   /// Creates a new array with [width], [height] elements initialized to [value]
   /// (or `null` if [value] is omitted).
   Array2D(int width, int height, [T value])
-      : bounds = new Rect(0, 0, width, height),
-        _elements = new List<T>.filled(width * height, value);
+      : bounds = Rect(0, 0, width, height),
+        _elements = List<T>.filled(width * height, value);
 
   /// Creates a new array with [width], [height] elements initialized to the
   /// result of calling [generator] on each element.
@@ -37,16 +37,16 @@ class Array2D<T> extends IterableBase<T> {
   /// parameter, or two [int] parameters (`x` and `y`) and returns a value of
   /// type [T].
   Array2D.generated(int width, int height, Function generator)
-      : bounds = new Rect(0, 0, width, height),
-        _elements = new List<T>.filled(width * height, null) {
+      : bounds = Rect(0, 0, width, height),
+        _elements = List<T>.filled(width * height, null) {
     generate(generator);
   }
 
   /// Gets the element at [pos].
-  T operator[](Vec pos) => _elements[pos.y * width + pos.x];
+  T operator [](Vec pos) => _elements[pos.y * width + pos.x];
 
   /// Sets the element at [pos].
-  void operator[]=(Vec pos, T value) {
+  void operator []=(Vec pos, T value) {
     _elements[pos.y * width + pos.x] = value;
   }
 
@@ -56,7 +56,7 @@ class Array2D<T> extends IterableBase<T> {
   // is accessed very frequently and avoids allocating a new Rect each time.
 
   /// The size of the array.
-  Vec  get size => bounds.size;
+  Vec get size => bounds.size;
 
   /// Gets the element in the array at [x], [y].
   T get(int x, int y) => _elements[y * width + x];
@@ -86,7 +86,7 @@ class Array2D<T> extends IterableBase<T> {
     } else if (generator is _CoordGenerator<T>) {
       for (var pos in bounds) this[pos] = generator(pos.x, pos.y);
     } else {
-      throw new ArgumentError(
+      throw ArgumentError(
           "Generator must take zero arguments, one Vec, or two ints.");
     }
   }

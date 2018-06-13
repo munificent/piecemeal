@@ -41,28 +41,28 @@ void main() {
   });
 
   test("*", () {
-    expect(Direction.ne * -1, equals(new Vec(-1, 1)));
-    expect(Direction.ne * 4, equals(new Vec(4, -4)));
+    expect(Direction.ne * -1, equals(Vec(-1, 1)));
+    expect(Direction.ne * 4, equals(Vec(4, -4)));
   });
 
   test("~/", () {
-    expect(Direction.ne ~/ 2, equals(new Vec(0, 0)));
+    expect(Direction.ne ~/ 2, equals(Vec(0, 0)));
   });
 
   group("+", () {
     test("Vec sums the vectors", () {
-      expect(Direction.ne + new Vec(1, 1), equals(new Vec(2, 0)));
-      expect(Direction.ne + new Vec(-1, 3), equals(new Vec(0, 2)));
+      expect(Direction.ne + Vec(1, 1), equals(Vec(2, 0)));
+      expect(Direction.ne + Vec(-1, 3), equals(Vec(0, 2)));
     });
 
     test("Direction sums the vectors", () {
-      expect(Direction.ne + Direction.se, equals(new Vec(2, 0)));
-      expect(Direction.ne + Direction.nw, equals(new Vec(0, -2)));
+      expect(Direction.ne + Direction.se, equals(Vec(2, 0)));
+      expect(Direction.ne + Direction.nw, equals(Vec(0, -2)));
     });
 
     test("int offsets both coordinates", () {
-      expect(Direction.ne + 1, equals(new Vec(2, 0)));
-      expect(Direction.ne + 2, equals(new Vec(3, 1)));
+      expect(Direction.ne + 1, equals(Vec(2, 0)));
+      expect(Direction.ne + 2, equals(Vec(3, 1)));
     });
 
     test("any other type throws", () {
@@ -72,18 +72,18 @@ void main() {
 
   group("-", () {
     test("Vec subtracts the vectors", () {
-      expect(Direction.ne - new Vec(1, 1), equals(new Vec(0, -2)));
-      expect(Direction.ne - new Vec(-1, 3), equals(new Vec(2, -4)));
+      expect(Direction.ne - Vec(1, 1), equals(Vec(0, -2)));
+      expect(Direction.ne - Vec(-1, 3), equals(Vec(2, -4)));
     });
 
     test("Direction subtracts the vectors", () {
-      expect(Direction.ne - Direction.se, equals(new Vec(0, -2)));
-      expect(Direction.ne - Direction.nw, equals(new Vec(2, 0)));
+      expect(Direction.ne - Direction.se, equals(Vec(0, -2)));
+      expect(Direction.ne - Direction.nw, equals(Vec(2, 0)));
     });
 
     test("int offsets both coordinates", () {
-      expect(Direction.ne - 1, equals(new Vec(0, -2)));
-      expect(Direction.ne - 2, equals(new Vec(-1, -3)));
+      expect(Direction.ne - 1, equals(Vec(0, -2)));
+      expect(Direction.ne - 2, equals(Vec(-1, -3)));
     });
 
     test("any other type throws", () {
@@ -93,9 +93,9 @@ void main() {
 
   group("<", () {
     test("Vec compares magnitude", () {
-      expect(Direction.ne < new Vec(0, 0), isFalse);
-      expect(Direction.ne < new Vec(-1, 1), isFalse);
-      expect(Direction.ne < new Vec(0, 2), isTrue);
+      expect(Direction.ne < Vec(0, 0), isFalse);
+      expect(Direction.ne < Vec(-1, 1), isFalse);
+      expect(Direction.ne < Vec(0, 2), isTrue);
     });
 
     test("Direction compares magnitude", () {
@@ -117,9 +117,9 @@ void main() {
 
   group(">", () {
     test("Vec compares magnitude", () {
-      expect(Direction.ne > new Vec(0, 0), isTrue);
-      expect(Direction.ne > new Vec(-1, 1), isFalse);
-      expect(Direction.ne > new Vec(0, 2), isFalse);
+      expect(Direction.ne > Vec(0, 0), isTrue);
+      expect(Direction.ne > Vec(-1, 1), isFalse);
+      expect(Direction.ne > Vec(0, 2), isFalse);
     });
 
     test("Direction compares magnitude", () {
@@ -141,9 +141,9 @@ void main() {
 
   group("<=", () {
     test("Vec compares magnitude", () {
-      expect(Direction.ne <= new Vec(0, 0), isFalse);
-      expect(Direction.ne <= new Vec(-1, 1), isTrue);
-      expect(Direction.ne <= new Vec(0, 2), isTrue);
+      expect(Direction.ne <= Vec(0, 0), isFalse);
+      expect(Direction.ne <= Vec(-1, 1), isTrue);
+      expect(Direction.ne <= Vec(0, 2), isTrue);
     });
 
     test("Direction compares magnitude", () {
@@ -165,9 +165,9 @@ void main() {
 
   group(">=", () {
     test("Vec compares magnitude", () {
-      expect(Direction.ne >= new Vec(0, 0), isTrue);
-      expect(Direction.ne >= new Vec(-1, 1), isTrue);
-      expect(Direction.ne >= new Vec(0, 2), isFalse);
+      expect(Direction.ne >= Vec(0, 0), isTrue);
+      expect(Direction.ne >= Vec(-1, 1), isTrue);
+      expect(Direction.ne >= Vec(0, 2), isFalse);
     });
 
     test("Direction compares magnitude", () {
@@ -188,31 +188,31 @@ void main() {
   });
 
   test("abs()", () {
-    expect(Direction.ne.abs(), equals(new Vec(1, 1)));
-    expect(Direction.s.abs(), equals(new Vec(0, 1)));
+    expect(Direction.ne.abs(), equals(Vec(1, 1)));
+    expect(Direction.s.abs(), equals(Vec(0, 1)));
   });
 
   test("contains()", () {
-    expect(Direction.se.contains(new Vec(0, 0)), isTrue);
-    expect(Direction.ne.contains(new Vec(0, -1)), isTrue);
-    expect(Direction.ne.contains(new Vec(1, 0)), isFalse);
-    expect(Direction.ne.contains(new Vec(1, -1)), isFalse);
-    expect(Direction.ne.contains(new Vec(3, 2)), isFalse);
+    expect(Direction.se.contains(Vec(0, 0)), isTrue);
+    expect(Direction.ne.contains(Vec(0, -1)), isTrue);
+    expect(Direction.ne.contains(Vec(1, 0)), isFalse);
+    expect(Direction.ne.contains(Vec(1, -1)), isFalse);
+    expect(Direction.ne.contains(Vec(3, 2)), isFalse);
   });
 
   test("offset()", () {
-    expect(Direction.ne.offset(3, 4), equals(new Vec(4, 3)));
-    expect(Direction.ne.offset(1, -2), equals(new Vec(2, -3)));
+    expect(Direction.ne.offset(3, 4), equals(Vec(4, 3)));
+    expect(Direction.ne.offset(1, -2), equals(Vec(2, -3)));
   });
 
   test("offsetX()", () {
-    expect(Direction.ne.offsetX(3), equals(new Vec(4, -1)));
-    expect(Direction.ne.offsetX(-2), equals(new Vec(-1, -1)));
+    expect(Direction.ne.offsetX(3), equals(Vec(4, -1)));
+    expect(Direction.ne.offsetX(-2), equals(Vec(-1, -1)));
   });
 
   test("offsetY()", () {
-    expect(Direction.ne.offsetY(3), equals(new Vec(1, 2)));
-    expect(Direction.ne.offsetY(-1), equals(new Vec(1, -2)));
+    expect(Direction.ne.offsetY(3), equals(Vec(1, 2)));
+    expect(Direction.ne.offsetY(-1), equals(Vec(1, -2)));
   });
 
   test("toString()", () {
@@ -226,7 +226,7 @@ void main() {
     expect(Direction.ne == Direction.s, isFalse);
 
     // Uses identity equality.
-    expect(Direction.ne == new Vec(1, -1), isFalse);
+    expect(Direction.ne == Vec(1, -1), isFalse);
     expect(Direction.none == Vec.zero, isFalse);
 
     // Other types.

@@ -39,7 +39,7 @@ import 'vec.dart';
 /// of points.
 class Rect extends IterableBase<Vec> {
   /// Gets the empty rectangle.
-  static const empty = const Rect.posAndSize(Vec.zero, Vec.zero);
+  static const empty = Rect.posAndSize(Vec.zero, Vec.zero);
 
   /// Creates a new rectangle that is the intersection of [a] and [b].
   ///
@@ -51,8 +51,7 @@ class Rect extends IterableBase<Vec> {
   ///     '-+--------'    |
   ///       |             |
   ///       '-------------'
-  static Rect intersect(Rect a, Rect b)
-  {
+  static Rect intersect(Rect a, Rect b) {
     final left = math.max(a.left, b.left);
     final right = math.min(a.right, b.right);
     final top = math.max(a.top, b.top);
@@ -61,13 +60,12 @@ class Rect extends IterableBase<Vec> {
     final width = math.max(0, right - left);
     final height = math.max(0, bottom - top);
 
-    return new Rect(left, top, width, height);
+    return Rect(left, top, width, height);
   }
 
-  static Rect centerIn(Rect toCenter, Rect main)
-  {
+  static Rect centerIn(Rect toCenter, Rect main) {
     final pos = main.pos + ((main.size - toCenter.size) ~/ 2);
-    return new Rect.posAndSize(pos, toCenter.size);
+    return Rect.posAndSize(pos, toCenter.size);
   }
 
   final Vec pos;
@@ -85,24 +83,24 @@ class Rect extends IterableBase<Vec> {
   int get right => math.max(x, x + width);
   int get bottom => math.max(y, y + height);
 
-  Vec get topLeft => new Vec(left, top);
-  Vec get topRight => new Vec(right, top);
-  Vec get bottomLeft => new Vec(left, bottom);
-  Vec get bottomRight => new Vec(right, bottom);
+  Vec get topLeft => Vec(left, top);
+  Vec get topRight => Vec(right, top);
+  Vec get bottomLeft => Vec(left, bottom);
+  Vec get bottomRight => Vec(right, bottom);
 
-  Vec get center => new Vec((left + right) ~/ 2, (top + bottom) ~/ 2);
+  Vec get center => Vec((left + right) ~/ 2, (top + bottom) ~/ 2);
 
   int get area => size.area;
 
   const Rect.posAndSize(this.pos, this.size);
 
   Rect.leftTopRightBottom(int left, int top, int right, int bottom)
-      : pos = new Vec(left, top),
-        size = new Vec(right - left, bottom - top);
+      : pos = Vec(left, top),
+        size = Vec(right - left, bottom - top);
 
   Rect(int x, int y, int width, int height)
-      : pos = new Vec(x, y),
-        size = new Vec(width, height);
+      : pos = Vec(x, y),
+        size = Vec(width, height);
 
   /// Creates a new rectangle a single row in height, as wide as [size],
   /// with its top left corner at [pos].
@@ -115,12 +113,11 @@ class Rect extends IterableBase<Vec> {
   String toString() => '($pos)-($size)';
 
   Rect inflate(int distance) {
-    return new Rect(x - distance, y - distance,
-      width + (distance * 2), height + (distance * 2));
+    return Rect(x - distance, y - distance, width + (distance * 2),
+        height + (distance * 2));
   }
 
-  Rect offset(int x, int y) =>
-      new Rect(this.x + x, this.y + y, width, height);
+  Rect offset(int x, int y) => Rect(this.x + x, this.y + y, width, height);
 
   bool contains(Object object) {
     if (object is! Vec) return false;
@@ -148,10 +145,10 @@ class Rect extends IterableBase<Vec> {
   Vec clamp(Vec vec) {
     var x = vec.x.clamp(left, right).toInt();
     var y = vec.y.clamp(top, bottom).toInt();
-    return new Vec(x, y);
+    return Vec(x, y);
   }
 
-  RectIterator get iterator => new RectIterator(this);
+  RectIterator get iterator => RectIterator(this);
 
   /// Returns the distance between this Rect and [other]. This is minimum
   /// length that a corridor would have to be to go from one Rect to the other.
@@ -190,22 +187,22 @@ class Rect extends IterableBase<Vec> {
       final result = <Vec>[];
 
       for (var x = left; x < right; x++) {
-        result.add(new Vec(x, top));
-        result.add(new Vec(x, bottom - 1));
+        result.add(Vec(x, top));
+        result.add(Vec(x, bottom - 1));
       }
 
       for (var y = top + 1; y < bottom - 1; y++) {
-        result.add(new Vec(left, y));
-        result.add(new Vec(right - 1, y));
+        result.add(Vec(left, y));
+        result.add(Vec(right - 1, y));
       }
 
       return result;
     } else if ((width > 1) && (height == 1)) {
       // A single row.
-      return new Rect.row(left, top, width);
+      return Rect.row(left, top, width);
     } else if ((height >= 1) && (width == 1)) {
       // A single column, or one unit
-      return new Rect.column(left, top, height);
+      return Rect.column(left, top, height);
     }
 
     // Otherwise, the rect doesn't have a positive size, so there's nothing to
@@ -226,7 +223,7 @@ class RectIterator implements Iterator<Vec> {
     _y = _rect.y;
   }
 
-  Vec get current => new Vec(_x, _y);
+  Vec get current => Vec(_x, _y);
 
   bool moveNext() {
     _x++;
@@ -235,6 +232,6 @@ class RectIterator implements Iterator<Vec> {
       _y++;
     }
 
-   return  _y < _rect.bottom;
+    return _y < _rect.bottom;
   }
 }
