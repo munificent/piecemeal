@@ -57,6 +57,41 @@ class Rng {
     }
   }
 
+  /// Gets a random integer count within the given floating point [range].
+  ///
+  /// The decimal portion of the range is treated as a fractional chance of
+  /// returning the next higher integer value. For example:
+  ///
+  ///     countFromFloat(10.2);
+  ///
+  /// This has an 80% chance of returning 10 and a 20% chance of returning 11.
+  ///
+  /// This is particularly useful when the range is less than one, because it
+  /// gives you some chance of still producing one instead of always rounding
+  /// down to zero.
+  int countFromFloat(double range) {
+    var count = range.floor();
+    if (rng.float(1.0) < range - count) count++;
+    return count;
+  }
+
+  /// Calculate a random number with a normal distribution.
+  ///
+  /// Note that this means results may be less than -1.0 or greater than 1.0.
+  ///
+  /// Uses https://en.wikipedia.org/wiki/Marsaglia_polar_method.
+  double normal() {
+    double u, v, lengthSquared;
+
+    do {
+      u = rng.float(-1.0, 1.0);
+      v = rng.float(-1.0, 1.0);
+      lengthSquared = u * u + v * v;
+    } while (lengthSquared >= 1.0);
+
+    return u * math.sqrt(-2.0 * math.log(lengthSquared) / lengthSquared);
+  }
+
   /// Returns `true` if a random int chosen between 1 and chance was 1.
   bool oneIn(int chance) => range(chance) == 0;
 

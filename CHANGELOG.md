@@ -1,3 +1,7 @@
+## 0.3.8
+
+* Add `Rng.countFromFloat()` and `Rng.normal()`.
+
 ## 0.3.6
 
 * Add `Array2D.fill()`.
