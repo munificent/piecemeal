@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import 'direction.dart';
+
 /// Shared base class of [Vec] and [Direction]. We do this instead of having
 /// [Direction] inherit directly from [Vec] so that we can avoid it inheriting
 /// an `==` operator, which would prevent it from being used in `switch`
@@ -33,6 +35,25 @@ class VecBase {
   /// the comparison operators or [lengthSquared], both of which are faster
   /// than this.
   num get length => math.sqrt(lengthSquared);
+
+  /// The eight Vecs surrounding this one to the north, south, east, and west
+  /// and points in between.
+  List<Vec> get neighbors {
+    var result = <Vec>[];
+    for (var direction in Direction.all) {
+      result.add(this + direction);
+    }
+    return result;
+  }
+
+  /// The four Vecs surrounding this one to the north, south, east, and west.
+  List<Vec> get cardinalNeighbors {
+    var result = <Vec>[];
+    for (var direction in Direction.cardinal) {
+      result.add(this + direction);
+    }
+    return result;
+  }
 
   /// Scales this Vec by [other].
   Vec operator *(int other) => Vec(x * other, y * other);

@@ -98,11 +98,42 @@ class Rng {
   /// Returns `true` [chance] percent of the time.
   bool percent(int chance) => range(100) < chance;
 
+  /// Rounds [value] to a nearby integer, randomly rounding up or down based
+  /// on the fractional value.
+  ///
+  /// For example, `round(3.2)` has a 20% chance of returning 3, and an 80%
+  /// chance of returning 4.
+  int round(double value) {
+    var result = value.floor();
+    if (float(1.0) < value - result) result++;
+    return result;
+  }
+
   /// Gets a random item from the given list.
   T item<T>(List<T> items) => items[range(items.length)];
 
   /// Removes a random item from the given list.
-  T take<T>(List<T> items) => items.removeAt(range(items.length));
+  ///
+  /// This may not preserve the order of items in the list, but is faster than
+  /// [takeOrdered].
+  T take<T>(List<T> items) {
+    var index = rng.range(items.length);
+    var result = items[index];
+
+    // Replace the removed item with the last item in the list and then discard
+    // the last.
+    items[index] = items.last;
+    items.removeLast();
+
+    return result;
+  }
+
+  /// Removes a random item from the given list, preserving the order of the
+  /// remaining items.
+  ///
+  /// This is O(n) because it must shift forward items after the removed one.
+  /// If you don't need to preserve order, use [take].
+  T takeOrdered<T>(List<T> items) => items.removeAt(range(items.length));
 
   /// Randomly re-orders elements in [items].
   void shuffle<T>(List<T> items) {

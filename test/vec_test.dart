@@ -46,6 +46,26 @@ void main() {
     expect(Vec(1, 2).length, equals(math.sqrt(5)));
   });
 
+  test("neighbors", () {
+    expect(
+        Vec(3, 4).neighbors,
+        containsAllInOrder(<Vec>[
+          Vec(3, 3),
+          Vec(4, 3),
+          Vec(4, 4),
+          Vec(4, 5),
+          Vec(3, 5),
+          Vec(2, 5),
+          Vec(2, 4),
+          Vec(2, 3)
+        ]));
+  });
+
+  test("cardinalNeighbors", () {
+    expect(Vec(3, 4).neighbors,
+        containsAllInOrder(<Vec>[Vec(3, 3), Vec(4, 4), Vec(3, 5), Vec(2, 4)]));
+  });
+
   test("*", () {
     expect(Vec(2, 3) * -1, equals(Vec(-2, -3)));
     expect(Vec(2, 3) * 4, equals(Vec(8, 12)));
