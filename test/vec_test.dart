@@ -46,6 +46,61 @@ void main() {
     expect(Vec(1, 2).length, equals(math.sqrt(5)));
   });
 
+  test("nearestDirection", () {
+    expect(Vec.zero.nearestDirection, Direction.none);
+
+    // Unit distance.
+    expect(Vec(0, -1).nearestDirection, Direction.n);
+    expect(Vec(1, -1).nearestDirection, Direction.ne);
+    expect(Vec(1, 0).nearestDirection, Direction.e);
+    expect(Vec(1, 1).nearestDirection, Direction.se);
+    expect(Vec(0, 1).nearestDirection, Direction.s);
+    expect(Vec(-1, 1).nearestDirection, Direction.sw);
+    expect(Vec(-1, 0).nearestDirection, Direction.w);
+
+    // Farther.
+    expect(Vec(0, -4).nearestDirection, Direction.n);
+    expect(Vec(4, -4).nearestDirection, Direction.ne);
+    expect(Vec(4, 0).nearestDirection, Direction.e);
+    expect(Vec(4, 4).nearestDirection, Direction.se);
+    expect(Vec(0, 4).nearestDirection, Direction.s);
+    expect(Vec(-4, 4).nearestDirection, Direction.sw);
+    expect(Vec(-4, 0).nearestDirection, Direction.w);
+
+    // If not directly along line, goes to nearest. Tie-breaker goes clockwise.
+    expect(Vec(2, -5).nearestDirection, Direction.n);
+    expect(Vec(2, -4).nearestDirection, Direction.ne);
+    expect(Vec(2, -3).nearestDirection, Direction.ne);
+
+    expect(Vec(3, -2).nearestDirection, Direction.ne);
+    expect(Vec(4, -2).nearestDirection, Direction.e);
+    expect(Vec(5, -2).nearestDirection, Direction.e);
+
+    expect(Vec(5, 2).nearestDirection, Direction.e);
+    expect(Vec(4, 2).nearestDirection, Direction.se);
+    expect(Vec(3, 2).nearestDirection, Direction.se);
+
+    expect(Vec(2, 3).nearestDirection, Direction.se);
+    expect(Vec(2, 4).nearestDirection, Direction.s);
+    expect(Vec(2, 5).nearestDirection, Direction.s);
+
+    expect(Vec(-2, 5).nearestDirection, Direction.s);
+    expect(Vec(-2, 4).nearestDirection, Direction.sw);
+    expect(Vec(-2, 3).nearestDirection, Direction.sw);
+
+    expect(Vec(-3, 2).nearestDirection, Direction.sw);
+    expect(Vec(-4, 2).nearestDirection, Direction.w);
+    expect(Vec(-5, 2).nearestDirection, Direction.w);
+
+    expect(Vec(-5, -2).nearestDirection, Direction.w);
+    expect(Vec(-4, -2).nearestDirection, Direction.nw);
+    expect(Vec(-3, -2).nearestDirection, Direction.nw);
+
+    expect(Vec(-2, -3).nearestDirection, Direction.nw);
+    expect(Vec(-2, -4).nearestDirection, Direction.n);
+    expect(Vec(-2, -5).nearestDirection, Direction.n);
+  });
+
   test("neighbors", () {
     expect(
         Vec(3, 4).neighbors,
@@ -64,6 +119,11 @@ void main() {
   test("cardinalNeighbors", () {
     expect(Vec(3, 4).neighbors,
         containsAllInOrder(<Vec>[Vec(3, 3), Vec(4, 4), Vec(3, 5), Vec(2, 4)]));
+  });
+
+  test("intercardinalNeighbors", () {
+    expect(Vec(3, 4).intercardinalNeighbors,
+        containsAllInOrder(<Vec>[Vec(4, 3), Vec(4, 5), Vec(2, 5), Vec(2, 3)]));
   });
 
   test("*", () {

@@ -1,3 +1,8 @@
+## 0.4.1
+
+*   Add `Vec.nearestDirection`.
+*   Add `Vec.intercardinalNeighbors`.
+
 ## 0.4.0
 
 *   `Rng.take()` no longer preserves order, but is faster. To preserve order,

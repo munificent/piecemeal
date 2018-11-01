@@ -36,6 +36,71 @@ class VecBase {
   /// than this.
   num get length => math.sqrt(lengthSquared);
 
+  /// The [Direction] that most closely approximates the angle of this Vec.
+  ///
+  /// In cases where two directions are equally close, chooses the one that is
+  /// clockwise from this Vec's angle.
+  ///
+  /// In other words, it figures out which octant the vector's angle lies in
+  /// (the dotted lines) and chooses the corresponding direction:
+  ///
+  ///               n
+  ///      nw   2.0  -2.0  ne
+  ///         \  '  |  '  /
+  ///          \    |    /
+  ///      0.5  \ ' | ' /   -0.5
+  ///         '  \  |  /  '
+  ///           ' \'|'/ '
+  ///             '\|/'
+  ///       w ------0------ e
+  ///             '/|\'
+  ///           ' /'|'\ '
+  ///         '  /  |  \  '
+  ///     -0.5  / ' | ' \   0.5
+  ///          /    |    \
+  ///         /  '  |  '  \
+  ///       sw -2.0   2.0  se
+  ///               s
+  Direction get nearestDirection {
+    if (x == 0) {
+      if (y < 0) {
+        return Direction.n;
+      } else if (y == 0) {
+        return Direction.none;
+      } else {
+        return Direction.s;
+      }
+    }
+
+    var slope = y / x;
+
+    if (x < 0) {
+      if (slope >= 2.0) {
+        return Direction.n;
+      } else if (slope >= 0.5) {
+        return Direction.nw;
+      } else if (slope >= -0.5) {
+        return Direction.w;
+      } else if (slope >= -2.0) {
+        return Direction.sw;
+      } else {
+        return Direction.s;
+      }
+    } else {
+      if (slope >= 2.0) {
+        return Direction.s;
+      } else if (slope >= 0.5) {
+        return Direction.se;
+      } else if (slope >= -0.5) {
+        return Direction.e;
+      } else if (slope >= -2.0) {
+        return Direction.ne;
+      } else {
+        return Direction.n;
+      }
+    }
+  }
+
   /// The eight Vecs surrounding this one to the north, south, east, and west
   /// and points in between.
   List<Vec> get neighbors {
@@ -50,6 +115,16 @@ class VecBase {
   List<Vec> get cardinalNeighbors {
     var result = <Vec>[];
     for (var direction in Direction.cardinal) {
+      result.add(this + direction);
+    }
+    return result;
+  }
+
+  /// The four Vecs surrounding this one to the northeast, southeast, southwest,
+  /// and northwest.
+  List<Vec> get intercardinalNeighbors {
+    var result = <Vec>[];
+    for (var direction in Direction.intercardinal) {
       result.add(this + direction);
     }
     return result;
