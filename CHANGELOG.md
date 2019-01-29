@@ -1,3 +1,7 @@
+## 0.4.2
+
+*   Better `hashCode` on `Vec` with fewer collisions.
+
 ## 0.4.1
 
 *   Add `Vec.nearestDirection`.

@@ -256,7 +256,16 @@ class VecBase {
 class Vec extends VecBase {
   static const zero = Vec(0, 0);
 
-  int get hashCode => (x ^ y).hashCode;
+  int get hashCode {
+    // Map negative coordinates to positive and spread out the positive ones to
+    // make room for them.
+    var a = x >= 0 ? 2 * x : -2 * x - 1;
+    var b = y >= 0 ? 2 * y : -2 * y - 1;
+
+    // Cantor pairing function.
+    // https://en.wikipedia.org/wiki/Pairing_function
+    return (a + b) * (a + b + 1) ~/ 2 + b;
+  }
 
   const Vec(int x, int y) : super(x, y);
 
