@@ -12,4 +12,8 @@ void main() {
       }
     }
   });
+
+  test("uninitialized non-nullable", () {
+    expect(() => Array2D<int>(3, 2), throwsA(anything));
+  });
 }

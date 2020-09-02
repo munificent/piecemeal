@@ -1,9 +1,9 @@
 name: piecemeal
-version: 0.4.2
+version: 0.4.3-nullsafety.1
 author: Bob Nystrom <robert@stuffwithstuff.com>
 description: Basic data structures your 2D game may need.
 homepage: https://github.com/munificent/piecemeal
 dev_dependencies:
-  test: any
+  test: 1.16.0-nullsafety.2
 environment:
-  sdk: ">=2.0.0-dev.62.0 <3.0.0"
+  sdk: '>=2.10.0-0.0.dev <2.11.0'

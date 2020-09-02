@@ -3,10 +3,6 @@ import 'dart:collection';
 import 'rect.dart';
 import 'vec.dart';
 
-typedef T _NullaryGenerator<T>();
-typedef T _VecGenerator<T>(Vec pos);
-typedef T _CoordGenerator<T>(int x, int y);
-
 /// A two-dimensional fixed-size array of elements of type [T].
 ///
 /// This class doesn't follow matrix notation which tends to put the column
@@ -25,10 +21,11 @@ class Array2D<T> extends IterableBase<T> {
   final List<T> _elements;
 
   /// Creates a new array with [width], [height] elements initialized to [value]
-  /// (or `null` if [value] is omitted).
-  Array2D(int width, int height, [T value])
+  /// (or `null` if [value] is omitted, which is only allowed if [T] is
+  /// nullable).
+  Array2D(int width, int height, [T? value])
       : bounds = Rect(0, 0, width, height),
-        _elements = List<T>.filled(width * height, value);
+        _elements = List<T>.filled(width * height, value as T);
 
   /// Creates a new array with [width], [height] elements initialized to the
   /// result of calling [generator] on each element.
@@ -38,9 +35,8 @@ class Array2D<T> extends IterableBase<T> {
   /// type [T].
   Array2D.generated(int width, int height, Function generator)
       : bounds = Rect(0, 0, width, height),
-        _elements = List<T>.filled(width * height, null) {
-    generate(generator);
-  }
+        _elements =
+            List<T>.generate(width * height, _makeGenerator(width, generator));
 
   /// Gets the element at [pos].
   T operator [](Vec pos) => _elements[pos.y * width + pos.x];
@@ -78,18 +74,25 @@ class Array2D<T> extends IterableBase<T> {
   /// parameter, or two [int] parameters (`x` and `y`) and returns a value of
   /// type [T].
   void generate(Function generator) {
-    // Wrap the generator in a function with a known signature.
-    if (generator is _NullaryGenerator<T>) {
-      for (var pos in bounds) this[pos] = generator();
-    } else if (generator is _VecGenerator<T>) {
-      for (var pos in bounds) this[pos] = generator(pos);
-    } else if (generator is _CoordGenerator<T>) {
-      for (var pos in bounds) this[pos] = generator(pos.x, pos.y);
-    } else {
-      throw ArgumentError(
-          "Generator must take zero arguments, one Vec, or two ints.");
+    var function = _makeGenerator<T>(width, generator);
+    for (var i = 0; i < _elements.length; i++) {
+      _elements[i] = function(i);
     }
   }
 
   Iterator<T> get iterator => _elements.iterator;
+}
+
+/// Wrap [generator] in a function with a known typed signature.
+T Function(int) _makeGenerator<T>(int width, Function generator) {
+  if (generator is T Function()) {
+    return (int _) => generator();
+  } else if (generator is T Function(Vec)) {
+    return (int i) => generator(Vec(i % width, i ~/ width));
+  } else if (generator is T Function(int, int)) {
+    return (int i) => generator(i % width, i ~/ width);
+  } else {
+    throw ArgumentError(
+        "Generator must take zero arguments, one Vec, or two ints.");
+  }
 }
