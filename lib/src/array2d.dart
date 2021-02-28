@@ -3,10 +3,6 @@ import 'dart:collection';
 import 'rect.dart';
 import 'vec.dart';
 
-typedef T _NullaryGenerator<T>();
-typedef T _VecGenerator<T>(Vec pos);
-typedef T _CoordGenerator<T>(int x, int y);
-
 /// A two-dimensional fixed-size array of elements of type [T].
 ///
 /// This class doesn't follow matrix notation which tends to put the column
@@ -24,21 +20,17 @@ class Array2D<T> extends IterableBase<T> {
 
   final List<T> _elements;
 
-  /// Creates a new array with [width], [height] elements initialized to [value]
-  /// (or `null` if [value] is omitted).
-  Array2D(int width, int height, [T value])
+  /// Creates a new array with [width], [height] elements initialized to
+  /// [value].
+  Array2D(int width, int height, T value)
       : bounds = Rect(0, 0, width, height),
         _elements = List<T>.filled(width * height, value);
 
   /// Creates a new array with [width], [height] elements initialized to the
   /// result of calling [generator] on each element.
-  ///
-  /// The generator function can either take no parameters, one [Vec]
-  /// parameter, or two [int] parameters (`x` and `y`) and returns a value of
-  /// type [T].
-  Array2D.generated(int width, int height, Function generator)
+  Array2D.generated(int width, int height, T Function(Vec) generator)
       : bounds = Rect(0, 0, width, height),
-        _elements = List<T>.filled(width * height, null) {
+        _elements = List<T>.filled(width * height, generator(Vec.zero)) {
     generate(generator);
   }
 
@@ -73,22 +65,8 @@ class Array2D<T> extends IterableBase<T> {
 
   /// Evaluates [generator] on each position in the array and sets the element
   /// at that position to the result.
-  ///
-  /// The generator function can either take no parameters, one [Vec]
-  /// parameter, or two [int] parameters (`x` and `y`) and returns a value of
-  /// type [T].
-  void generate(Function generator) {
-    // Wrap the generator in a function with a known signature.
-    if (generator is _NullaryGenerator<T>) {
-      for (var pos in bounds) this[pos] = generator();
-    } else if (generator is _VecGenerator<T>) {
-      for (var pos in bounds) this[pos] = generator(pos);
-    } else if (generator is _CoordGenerator<T>) {
-      for (var pos in bounds) this[pos] = generator(pos.x, pos.y);
-    } else {
-      throw ArgumentError(
-          "Generator must take zero arguments, one Vec, or two ints.");
-    }
+  void generate(T Function(Vec) generator) {
+    for (var pos in bounds) this[pos] = generator(pos);
   }
 
   Iterator<T> get iterator => _elements.iterator;

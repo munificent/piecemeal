@@ -10,9 +10,7 @@ final Rng rng = Rng(DateTime.now().millisecondsSinceEpoch);
 class Rng {
   math.Random _random;
 
-  Rng(int seed) {
-    setSeed(seed);
-  }
+  Rng(int seed) : _random = math.Random(seed);
 
   /// Resets the random number generator's internal state to [seed].
   void setSeed(int seed) {
@@ -23,7 +21,7 @@ class Rng {
   /// in the range `[minOrMax, max)`. Otherwise, it is `[0, minOrMax)`. In
   /// other words, `range(3)` returns a `0`, `1`, or `2`, and `range(2, 5)`
   /// returns `2`, `3`, or `4`.
-  int range(int minOrMax, [int max]) {
+  int range(int minOrMax, [int? max]) {
     if (max == null) {
       max = minOrMax;
       minOrMax = 0;
@@ -36,7 +34,7 @@ class Rng {
   /// in the range `[minOrMax, max]`. Otherwise, it is `[0, minOrMax]`. In
   /// other words, `inclusive(2)` returns a `0`, `1`, or `2`, and
   /// `inclusive(2, 4)` returns `2`, `3`, or `4`.
-  int inclusive(int minOrMax, [int max]) {
+  int inclusive(int minOrMax, [int? max]) {
     if (max == null) {
       max = minOrMax;
       minOrMax = 0;
@@ -47,7 +45,7 @@ class Rng {
   }
 
   /// Gets a random floating-point value within the given range.
-  double float([double minOrMax, double max]) {
+  double float([double? minOrMax, double? max]) {
     if (minOrMax == null) {
       return _random.nextDouble();
     } else if (max == null) {

@@ -119,14 +119,13 @@ class Rect extends IterableBase<Vec> {
 
   Rect offset(int x, int y) => Rect(this.x + x, this.y + y, width, height);
 
-  bool contains(Object object) {
+  bool contains(Object? object) {
     if (object is! Vec) return false;
 
-    var point = object as Vec;
-    if (point.x < pos.x) return false;
-    if (point.x >= pos.x + size.x) return false;
-    if (point.y < pos.y) return false;
-    if (point.y >= pos.y + size.y) return false;
+    if (object.x < pos.x) return false;
+    if (object.x >= pos.x + size.x) return false;
+    if (object.y < pos.y) return false;
+    if (object.y >= pos.y + size.y) return false;
 
     return true;
   }
@@ -218,10 +217,9 @@ class RectIterator implements Iterator<Vec> {
   int _x;
   int _y;
 
-  RectIterator(this._rect) {
-    _x = _rect.x - 1;
-    _y = _rect.y;
-  }
+  RectIterator(this._rect)
+      : _x = _rect.x - 1,
+        _y = _rect.y;
 
   Vec get current => Vec(_x, _y);
 

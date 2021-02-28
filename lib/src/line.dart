@@ -18,9 +18,6 @@ class Line extends IterableBase<Vec> {
 }
 
 class _LineIterator implements Iterator<Vec> {
-  final Vec _start;
-  final Vec _end;
-
   Vec _current;
   Vec get current => _current;
 
@@ -39,34 +36,37 @@ class _LineIterator implements Iterator<Vec> {
   /// unit this direction when the accumulated error overflows.
   Vec _secondaryStep;
 
-  _LineIterator(this._start, this._end) {
-    var delta = _end - _start;
+  factory _LineIterator(Vec start, Vec end) {
+    var delta = end - start;
 
     // Figure which octant the line is in and increment appropriately.
-    _primaryStep = Vec(delta.x.sign, 0);
-    _secondaryStep = Vec(0, delta.y.sign);
+    var primaryStep = Vec(delta.x.sign, 0);
+    var secondaryStep = Vec(0, delta.y.sign);
 
     // Discard the signs now that they are accounted for.
     delta = delta.abs();
 
     // Assume moving horizontally each step.
-    _primary = delta.x;
-    _secondary = delta.y;
+    var primary = delta.x;
+    var secondary = delta.y;
 
     // Swap the order if the y magnitude is greater.
     if (delta.y > delta.x) {
-      var temp = _primary;
-      _primary = _secondary;
-      _secondary = temp;
+      var temp = primary;
+      primary = secondary;
+      secondary = temp;
 
-      var tempIncrement = _primaryStep;
-      _primaryStep = _secondaryStep;
-      _secondaryStep = tempIncrement;
+      var tempIncrement = primaryStep;
+      primaryStep = secondaryStep;
+      secondaryStep = tempIncrement;
     }
 
-    _current = _start;
-    _error = 0;
+    return _LineIterator._(
+        start, 0, primary, secondary, primaryStep, secondaryStep);
   }
+
+  _LineIterator._(this._current, this._error, this._primary, this._secondary,
+      this._primaryStep, this._secondaryStep);
 
   /// Always returns `true` to allow a line to overshoot the end point. Make
   /// sure you terminate iteration yourself.
