@@ -1,3 +1,9 @@
+## 1.0.0
+
+*   Migrate to null safety. The fill parameter to `Array2D` is now required.
+*   Require a `T Function(Vec)` to `Array2D.generated()` and
+    `Array2D.generate()`. Runtime overloading doesn't feel idiomatic today.
+
 ## 0.4.2
 
 *   Better `hashCode` on `Vec` with fewer collisions.
