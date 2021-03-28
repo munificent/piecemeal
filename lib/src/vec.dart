@@ -103,32 +103,17 @@ class VecBase {
 
   /// The eight Vecs surrounding this one to the north, south, east, and west
   /// and points in between.
-  List<Vec> get neighbors {
-    var result = <Vec>[];
-    for (var direction in Direction.all) {
-      result.add(this + direction);
-    }
-    return result;
-  }
+  List<Vec> get neighbors =>
+      [for (var direction in Direction.all) this + direction];
 
   /// The four Vecs surrounding this one to the north, south, east, and west.
-  List<Vec> get cardinalNeighbors {
-    var result = <Vec>[];
-    for (var direction in Direction.cardinal) {
-      result.add(this + direction);
-    }
-    return result;
-  }
+  List<Vec> get cardinalNeighbors =>
+      [for (var direction in Direction.cardinal) this + direction];
 
   /// The four Vecs surrounding this one to the northeast, southeast, southwest,
   /// and northwest.
-  List<Vec> get intercardinalNeighbors {
-    var result = <Vec>[];
-    for (var direction in Direction.intercardinal) {
-      result.add(this + direction);
-    }
-    return result;
-  }
+  List<Vec> get intercardinalNeighbors =>
+      [for (var direction in Direction.intercardinal) this + direction];
 
   /// Scales this Vec by [other].
   Vec operator *(int other) => Vec(x * other, y * other);
@@ -215,8 +200,8 @@ class VecBase {
     throw ArgumentError("Operand must be an int or VecBase.");
   }
 
-  /// Gets whether the given vector is within a rectangle from (0,0) to this
-  /// vector (half-inclusive).
+  /// Returns `true` if [pos] is within a rectangle from (0,0) to this vector
+  /// (half-inclusive).
   bool contains(Vec pos) {
     var left = math.min(0, x);
     if (pos.x < left) return false;
@@ -270,10 +255,7 @@ class Vec extends VecBase {
   const Vec(int x, int y) : super(x, y);
 
   bool operator ==(Object other) {
-    if (other is VecBase) {
-      return x == other.x && y == other.y;
-    }
-
-    return false;
+    if (other is! VecBase) return false;
+    return x == other.x && y == other.y;
   }
 }

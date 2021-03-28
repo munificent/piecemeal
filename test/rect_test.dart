@@ -3,11 +3,46 @@ import 'package:test/test.dart';
 import 'package:piecemeal/piecemeal.dart';
 
 void main() {
+  // TODO: intersect().
+  // TODO: centerIn().
+
   test("empty", () {
     expect(Rect.empty.x, equals(0));
     expect(Rect.empty.y, equals(0));
     expect(Rect.empty.width, equals(0));
     expect(Rect.empty.height, equals(0));
+  });
+
+  test("Rect.posAndSize()", () {
+    var rect = Rect.posAndSize(Vec(1, 2), Vec(3, 4));
+    expect(rect.x, equals(1));
+    expect(rect.y, equals(2));
+    expect(rect.width, equals(3));
+    expect(rect.height, equals(4));
+  });
+
+  test("Rect.leftTopRightBottom()", () {
+    var rect = Rect.leftTopRightBottom(1, 2, 3, 4);
+    expect(rect.x, equals(1));
+    expect(rect.y, equals(2));
+    expect(rect.width, equals(2));
+    expect(rect.height, equals(2));
+  });
+
+  test("Rect.row()", () {
+    var rect = Rect.row(1, 2, 3);
+    expect(rect.x, equals(1));
+    expect(rect.y, equals(2));
+    expect(rect.width, equals(3));
+    expect(rect.height, equals(1));
+  });
+
+  test("Rect.column()", () {
+    var rect = Rect.column(1, 2, 3);
+    expect(rect.x, equals(1));
+    expect(rect.y, equals(2));
+    expect(rect.width, equals(1));
+    expect(rect.height, equals(3));
   });
 
   test("coordinates", () {
@@ -50,6 +85,8 @@ void main() {
     expect(rect.bottomLeft, equals(Vec(-2, 2)));
   });
 
+  // TODO: center.
+
   test("area", () {
     expect(Rect(-1, 2, 3, 4).area, equals(12));
     expect(Rect(0, 0, 1, 4).area, equals(4));
@@ -62,50 +99,24 @@ void main() {
     expect(Rect(0, 0, -2, -3).area, equals(6));
   });
 
-  test("Rect.posAndSize()", () {
-    var rect = Rect.posAndSize(Vec(1, 2), Vec(3, 4));
-    expect(rect.x, equals(1));
-    expect(rect.y, equals(2));
-    expect(rect.width, equals(3));
-    expect(rect.height, equals(4));
-  });
-
-  test("Rect.leftTopRightBottom()", () {
-    var rect = Rect.leftTopRightBottom(1, 2, 3, 4);
-    expect(rect.x, equals(1));
-    expect(rect.y, equals(2));
-    expect(rect.width, equals(2));
-    expect(rect.height, equals(2));
-  });
-
-  test("Rect.row()", () {
-    var rect = Rect.row(1, 2, 3);
-    expect(rect.x, equals(1));
-    expect(rect.y, equals(2));
-    expect(rect.width, equals(3));
-    expect(rect.height, equals(1));
-  });
-
-  test("Rect.column()", () {
-    var rect = Rect.column(1, 2, 3);
-    expect(rect.x, equals(1));
-    expect(rect.y, equals(2));
-    expect(rect.width, equals(1));
-    expect(rect.height, equals(3));
-  });
-
-  test(".toString()", () {
+  test("toString()", () {
     expect(Rect(1, 2, 3, 4).toString(), equals("(1, 2)-(3, 4)"));
   });
 
-  // TODO: intersect().
-  // TODO: centerIn().
-  // TODO: center.
   // TODO: inflate().
+
+  test("offset()", () {
+    var rect = Rect(1, 2, 3, 4);
+
+    expect(rect.offset(5, 6), equals(Rect(6, 8, 3, 4)));
+
+    expect(rect.offset(-5, -6), equals(Rect(-4, -4, 3, 4)));
+  });
+
   // TODO: contains().
   // TODO: containsRect().
 
-  test(".clamp()", () {
+  test("clamp()", () {
     var rect = Rect(1, 2, 3, 4);
 
     // Inside.
@@ -125,14 +136,6 @@ void main() {
 
     // Corner.
     expect(rect.clamp(Vec(20, 30)), equals(Vec(4, 6)));
-  });
-
-  test(".offset()", () {
-    var rect = Rect(1, 2, 3, 4);
-
-    expect(rect.offset(5, 6), equals(Rect(6, 8, 3, 4)));
-
-    expect(rect.offset(-5, -6), equals(Rect(-4, -4, 3, 4)));
   });
 
   // TODO: iterator.

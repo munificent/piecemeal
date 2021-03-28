@@ -206,7 +206,7 @@ class Rect extends IterableBase<Vec> {
 
     // Otherwise, the rect doesn't have a positive size, so there's nothing to
     // trace.
-    return const <Vec>[];
+    return const [];
   }
 
   // TODO: Equality operator and hashCode.

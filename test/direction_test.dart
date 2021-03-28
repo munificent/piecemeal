@@ -220,7 +220,7 @@ void main() {
     expect(Direction.none.toString(), equals("none"));
   });
 
-  test("equality", () {
+  test("==", () {
     expect(Direction.ne == Direction.ne, isTrue);
     expect(Direction.s == Direction.s, isTrue);
     expect(Direction.ne == Direction.s, isFalse);
@@ -231,5 +231,30 @@ void main() {
 
     // Other types.
     expect(Direction.ne == 0, isFalse);
+  });
+
+  test("rotateLeft45", () {
+    expect(Direction.n.rotateLeft45, equals(Direction.nw));
+    expect(Direction.se.rotateLeft45, equals(Direction.e));
+  });
+
+  test("rotateRight45", () {
+    expect(Direction.n.rotateRight45, equals(Direction.ne));
+    expect(Direction.se.rotateRight45, equals(Direction.s));
+  });
+
+  test("rotateLeft90", () {
+    expect(Direction.n.rotateLeft90, equals(Direction.w));
+    expect(Direction.se.rotateLeft90, equals(Direction.ne));
+  });
+
+  test("rotateRight90", () {
+    expect(Direction.n.rotateRight90, equals(Direction.e));
+    expect(Direction.se.rotateRight90, equals(Direction.sw));
+  });
+
+  test("rotate180", () {
+    expect(Direction.n.rotate180, equals(Direction.s));
+    expect(Direction.se.rotate180, equals(Direction.nw));
   });
 }

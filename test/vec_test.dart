@@ -104,7 +104,7 @@ void main() {
   test("neighbors", () {
     expect(
         Vec(3, 4).neighbors,
-        containsAllInOrder(<Vec>[
+        equals([
           Vec(3, 3),
           Vec(4, 3),
           Vec(4, 4),
@@ -117,13 +117,13 @@ void main() {
   });
 
   test("cardinalNeighbors", () {
-    expect(Vec(3, 4).neighbors,
-        containsAllInOrder(<Vec>[Vec(3, 3), Vec(4, 4), Vec(3, 5), Vec(2, 4)]));
+    expect(Vec(3, 4).cardinalNeighbors,
+        equals([Vec(3, 3), Vec(4, 4), Vec(3, 5), Vec(2, 4)]));
   });
 
   test("intercardinalNeighbors", () {
     expect(Vec(3, 4).intercardinalNeighbors,
-        containsAllInOrder(<Vec>[Vec(4, 3), Vec(4, 5), Vec(2, 5), Vec(2, 3)]));
+        equals([Vec(4, 3), Vec(4, 5), Vec(2, 5), Vec(2, 3)]));
   });
 
   test("*", () {

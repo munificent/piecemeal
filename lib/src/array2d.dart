@@ -30,17 +30,26 @@ class Array2D<T> extends IterableBase<T> {
   /// result of calling [generator] on each element.
   Array2D.generated(int width, int height, T Function(Vec) generator)
       : bounds = Rect(0, 0, width, height),
-        _elements = List<T>.filled(width * height, generator(Vec.zero)) {
-    generate(generator);
+        _elements = width * height > 0
+            ? List<T>.filled(width * height, generator(Vec.zero))
+            : List<T>.empty() {
+    // Don't call generator() on the first cell twice.
+    for (var x = 1; x < width; x++) {
+      set(x, 0, generator(Vec(x, 0)));
+    }
+
+    for (var y = 1; y < height; y++) {
+      for (var x = 0; x < width; x++) {
+        set(x, y, generator(Vec(x, y)));
+      }
+    }
   }
 
   /// Gets the element at [pos].
-  T operator [](Vec pos) => _elements[pos.y * width + pos.x];
+  T operator [](Vec pos) => get(pos.x, pos.y);
 
   /// Sets the element at [pos].
-  void operator []=(Vec pos, T value) {
-    _elements[pos.y * width + pos.x] = value;
-  }
+  void operator []=(Vec pos, T value) => set(pos.x, pos.y, value);
 
   /// A [Rect] whose bounds cover the full range of valid element indexes.
   final Rect bounds;
@@ -51,10 +60,14 @@ class Array2D<T> extends IterableBase<T> {
   Vec get size => bounds.size;
 
   /// Gets the element in the array at [x], [y].
-  T get(int x, int y) => _elements[y * width + x];
+  T get(int x, int y) {
+    _checkBounds(x, y);
+    return _elements[y * width + x];
+  }
 
   /// Sets the element in the array at [x], [y] to [value].
   void set(int x, int y, T value) {
+    _checkBounds(x, y);
     _elements[y * width + x] = value;
   }
 
@@ -70,4 +83,9 @@ class Array2D<T> extends IterableBase<T> {
   }
 
   Iterator<T> get iterator => _elements.iterator;
+
+  void _checkBounds(int x, int y) {
+    if (x < 0 || x >= width) throw RangeError.value(x, "x");
+    if (y < 0 || y >= height) throw RangeError.value(y, "y");
+  }
 }
