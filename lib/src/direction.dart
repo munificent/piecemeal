@@ -1,6 +1,6 @@
 import 'vec.dart';
 
-class Direction extends VecBase implements Vec {
+class Direction extends Vec {
   static const none = Direction(0, 0);
   static const n = Direction(0, -1);
   static const ne = Direction(1, -1);

@@ -2,15 +2,14 @@ import 'dart:math' as math;
 
 import 'direction.dart';
 
-/// Shared base class of [Vec] and [Direction]. We do this instead of having
-/// [Direction] inherit directly from [Vec] so that we can avoid it inheriting
-/// an `==` operator, which would prevent it from being used in `switch`
-/// statements. Instead, [Direction] uses identity equality.
-class VecBase {
+/// A two-dimensional point with integer coordinates.
+class Vec {
   final int x;
   final int y;
 
-  const VecBase(this.x, this.y);
+  static const zero = Vec(0, 0);
+
+  const Vec(this.x, this.y);
 
   /// Gets the area of a [Rect] whose corners are (0, 0) and this Vec.
   ///
@@ -128,13 +127,13 @@ class VecBase {
   ///
   /// Any other type is an error.
   Vec operator +(Object other) {
-    if (other is VecBase) {
+    if (other is Vec) {
       return Vec(x + other.x, y + other.y);
     } else if (other is int) {
       return Vec(x + other, y + other);
     }
 
-    throw ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or Vec.");
   }
 
   /// Substracts [other] from this Vec.
@@ -145,59 +144,59 @@ class VecBase {
   ///
   /// Any other type is an error.
   Vec operator -(Object other) {
-    if (other is VecBase) {
+    if (other is Vec) {
       return Vec(x - other.x, y - other.y);
     } else if (other is int) {
       return Vec(x - other, y - other);
     }
 
-    throw ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or Vec.");
   }
 
   /// Returns `true` if the magnitude of this vector is greater than [other].
   bool operator >(Object other) {
-    if (other is VecBase) {
+    if (other is Vec) {
       return lengthSquared > other.lengthSquared;
     } else if (other is num) {
       return lengthSquared > other * other;
     }
 
-    throw ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or Vec.");
   }
 
   /// Returns `true` if the magnitude of this vector is greater than or equal
   /// to [other].
   bool operator >=(Object other) {
-    if (other is VecBase) {
+    if (other is Vec) {
       return lengthSquared >= other.lengthSquared;
     } else if (other is num) {
       return lengthSquared >= other * other;
     }
 
-    throw ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or Vec.");
   }
 
   /// Returns `true` if the magnitude of this vector is less than [other].
   bool operator <(Object other) {
-    if (other is VecBase) {
+    if (other is Vec) {
       return lengthSquared < other.lengthSquared;
     } else if (other is num) {
       return lengthSquared < other * other;
     }
 
-    throw ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or Vec.");
   }
 
   /// Returns `true` if the magnitude of this vector is less than or equal to
   /// [other].
   bool operator <=(Object other) {
-    if (other is VecBase) {
+    if (other is Vec) {
       return lengthSquared <= other.lengthSquared;
     } else if (other is num) {
       return lengthSquared <= other * other;
     }
 
-    throw ArgumentError("Operand must be an int or VecBase.");
+    throw ArgumentError("Operand must be an int or Vec.");
   }
 
   /// Returns `true` if [pos] is within a rectangle from (0,0) to this vector
@@ -235,12 +234,10 @@ class VecBase {
   Vec offsetY(int y) => Vec(x, this.y + y);
 
   @override
-  String toString() => '$x, $y';
-}
-
-/// A two-dimensional point.
-class Vec extends VecBase {
-  static const zero = Vec(0, 0);
+  bool operator ==(Object other) {
+    if (other is! Vec) return false;
+    return x == other.x && y == other.y;
+  }
 
   @override
   int get hashCode {
@@ -254,11 +251,6 @@ class Vec extends VecBase {
     return (a + b) * (a + b + 1) ~/ 2 + b;
   }
 
-  const Vec(int x, int y) : super(x, y);
-
   @override
-  bool operator ==(Object other) {
-    if (other is! VecBase) return false;
-    return x == other.x && y == other.y;
-  }
+  String toString() => '$x, $y';
 }

@@ -224,11 +224,11 @@ void main() {
     expect(Direction.s == Direction.s, isTrue);
     expect(Direction.ne == Direction.s, isFalse);
 
-    // Uses identity equality.
-    expect(Direction.ne == Vec(1, -1), isFalse);
-    expect(Direction.none == Vec.zero, isFalse);
+    // Has value semantics and equivalent to same vectors.
+    expect(Direction.ne == Vec(1, -1), isTrue);
+    expect(Direction.none == Vec.zero, isTrue);
 
-    // Other types.
+    // Not equal to other types.
     expect(Direction.ne == 0 as dynamic, isFalse);
   });
 

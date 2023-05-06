@@ -1,14 +1,21 @@
 ## 2.0.0
 
-Revamp Circle:
+Revamp `Circle`:
 
-*   Added `contains()` to Circle.
+*   Added `contains()` directly to `Circle`.
 *   The set of points in larger circles is tweaked to include more points so
 *   that there isn't only a single point at each edge on the origin.
 *   `isEdge()` now returns false for points not in the circle at all.
 *   The set of edge points is exactly the points in the circle that are not in
     the circle of one smaller radius. Before, it seemed to try to be that, but
     not quite.
+
+Revamp `Direction` and `Vec`:
+
+*   Get rid of `VecBase` and make `Direction` directly extend `Vec` now that
+    Dart 3.0 allows types with non-primitive equality in switch cases.
+*   `Direction` has value semantics and is equal to `Vec` instances with the
+    same coordinates.
 
 ## 1.0.0
 
