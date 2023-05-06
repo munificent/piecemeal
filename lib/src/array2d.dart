@@ -79,9 +79,12 @@ class Array2D<T> extends IterableBase<T> {
   /// Evaluates [generator] on each position in the array and sets the element
   /// at that position to the result.
   void generate(T Function(Vec) generator) {
-    for (var pos in bounds) this[pos] = generator(pos);
+    for (var pos in bounds) {
+      this[pos] = generator(pos);
+    }
   }
 
+  @override
   Iterator<T> get iterator => _elements.iterator;
 
   void _checkBounds(int x, int y) {

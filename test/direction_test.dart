@@ -1,8 +1,7 @@
 import 'dart:math' as math;
 
-import 'package:test/test.dart';
-
 import 'package:piecemeal/piecemeal.dart';
+import 'package:test/test.dart';
 
 void main() {
   test("coordinates", () {
@@ -230,7 +229,7 @@ void main() {
     expect(Direction.none == Vec.zero, isFalse);
 
     // Other types.
-    expect(Direction.ne == 0, isFalse);
+    expect(Direction.ne == 0 as dynamic, isFalse);
   });
 
   test("rotateLeft45", () {

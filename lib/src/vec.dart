@@ -234,6 +234,7 @@ class VecBase {
   /// coordinate translated by [y].
   Vec offsetY(int y) => Vec(x, this.y + y);
 
+  @override
   String toString() => '$x, $y';
 }
 
@@ -241,6 +242,7 @@ class VecBase {
 class Vec extends VecBase {
   static const zero = Vec(0, 0);
 
+  @override
   int get hashCode {
     // Map negative coordinates to positive and spread out the positive ones to
     // make room for them.
@@ -254,6 +256,7 @@ class Vec extends VecBase {
 
   const Vec(int x, int y) : super(x, y);
 
+  @override
   bool operator ==(Object other) {
     if (other is! VecBase) return false;
     return x == other.x && y == other.y;

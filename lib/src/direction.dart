@@ -148,6 +148,7 @@ class Direction extends VecBase implements Vec {
     throw "unreachable";
   }
 
+  @override
   String toString() {
     switch (this) {
       case none:

@@ -1,8 +1,9 @@
 name: piecemeal
-version: 1.0.0
+version: 2.0.0-dev
 description: Basic data structures your 2D game may need.
 homepage: https://github.com/munificent/piecemeal
 dev_dependencies:
+  lints: any
   test: any
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: "^3.0.0"

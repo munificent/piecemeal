@@ -1,8 +1,7 @@
 import 'dart:math' as math;
 
-import 'package:test/test.dart';
-
 import 'package:piecemeal/piecemeal.dart';
+import 'package:test/test.dart';
 
 void main() {
   test("zero", () {
@@ -323,6 +322,6 @@ void main() {
     expect(Vec(2, 1) == Direction.se, isFalse);
 
     // Other types.
-    expect(Vec(0, 0) == 0, isFalse);
+    expect(Vec(0, 0) == 0 as dynamic, isFalse);
   });
 }

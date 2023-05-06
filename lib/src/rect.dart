@@ -110,6 +110,7 @@ class Rect extends IterableBase<Vec> {
   /// with its top left corner at [pos].
   Rect.column(int x, int y, int size) : this(x, y, 1, size);
 
+  @override
   String toString() => '($pos)-($size)';
 
   Rect inflate(int distance) {
@@ -119,13 +120,14 @@ class Rect extends IterableBase<Vec> {
 
   Rect offset(int x, int y) => Rect(this.x + x, this.y + y, width, height);
 
-  bool contains(Object? object) {
-    if (object is! Vec) return false;
+  @override
+  bool contains(Object? element) {
+    if (element is! Vec) return false;
 
-    if (object.x < pos.x) return false;
-    if (object.x >= pos.x + size.x) return false;
-    if (object.y < pos.y) return false;
-    if (object.y >= pos.y + size.y) return false;
+    if (element.x < pos.x) return false;
+    if (element.x >= pos.x + size.x) return false;
+    if (element.y < pos.y) return false;
+    if (element.y >= pos.y + size.y) return false;
 
     return true;
   }
@@ -147,6 +149,7 @@ class Rect extends IterableBase<Vec> {
     return Vec(x, y);
   }
 
+  @override
   RectIterator get iterator => RectIterator(this);
 
   /// Returns the distance between this Rect and [other]. This is minimum
@@ -221,8 +224,10 @@ class RectIterator implements Iterator<Vec> {
       : _x = _rect.x - 1,
         _y = _rect.y;
 
+  @override
   Vec get current => Vec(_x, _y);
 
+  @override
   bool moveNext() {
     _x++;
     if (_x >= _rect.right) {

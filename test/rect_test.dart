@@ -1,6 +1,5 @@
-import 'package:test/test.dart';
-
 import 'package:piecemeal/piecemeal.dart';
+import 'package:test/test.dart';
 
 void main() {
   // TODO: intersect().

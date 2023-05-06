@@ -202,7 +202,9 @@ class Rng {
   }
 
   int taper(int start, int chanceOfIncrement) {
-    while (oneIn(chanceOfIncrement)) start++;
+    while (oneIn(chanceOfIncrement)) {
+      start++;
+    }
     return start;
   }
 }

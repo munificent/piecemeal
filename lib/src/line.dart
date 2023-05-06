@@ -12,13 +12,16 @@ class Line extends IterableBase<Vec> {
 
   Line(this.start, this.end);
 
+  @override
   Iterator<Vec> get iterator => _LineIterator(start, end);
 
+  @override
   int get length => throw UnsupportedError("Line iteration is unbounded.");
 }
 
 class _LineIterator implements Iterator<Vec> {
   Vec _current;
+  @override
   Vec get current => _current;
 
   /// Accumulated "error".
@@ -70,6 +73,7 @@ class _LineIterator implements Iterator<Vec> {
 
   /// Always returns `true` to allow a line to overshoot the end point. Make
   /// sure you terminate iteration yourself.
+  @override
   bool moveNext() {
     _current += _primaryStep;
 

@@ -29,6 +29,7 @@ class Circle extends IterableBase<Vec> {
     return leadingEdge;
   }
 
+  @override
   Iterator<Vec> get iterator => _CircleIterator(this, edge: false);
 
   /// Traces the outside edge of the circle.
@@ -36,12 +37,14 @@ class Circle extends IterableBase<Vec> {
 }
 
 class _CircleIterable extends IterableBase<Vec> {
+  @override
   final Iterator<Vec> iterator;
 
   _CircleIterable(this.iterator);
 }
 
 class _CircleIterator implements Iterator<Vec> {
+  @override
   Vec get current => _boundsIterator.current + _circle.center;
 
   final Circle _circle;
@@ -57,6 +60,7 @@ class _CircleIterator implements Iterator<Vec> {
   _CircleIterator._(this._circle, this._boundsIterator, {required bool edge})
       : _edge = edge;
 
+  @override
   bool moveNext() {
     while (true) {
       if (!_boundsIterator.moveNext()) return false;
