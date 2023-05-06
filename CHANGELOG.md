@@ -1,3 +1,15 @@
+## 2.0.0
+
+Revamp Circle:
+
+*   Added `contains()` to Circle.
+*   The set of points in larger circles is tweaked to include more points so
+*   that there isn't only a single point at each edge on the origin.
+*   `isEdge()` now returns false for points not in the circle at all.
+*   The set of edge points is exactly the points in the circle that are not in
+    the circle of one smaller radius. Before, it seemed to try to be that, but
+    not quite.
+
 ## 1.0.0
 
 *   Migrate to null safety. The fill parameter to `Array2D` is now required.
