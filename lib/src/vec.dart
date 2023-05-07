@@ -2,14 +2,10 @@ import 'dart:math' as math;
 
 import 'direction.dart';
 
-/// A two-dimensional point with integer coordinates.
-class Vec {
-  final int x;
-  final int y;
-
-  static const zero = Vec(0, 0);
-
-  const Vec(this.x, this.y);
+/// Shared functionality between [Vec] and [Direction].
+mixin VecMixin {
+  int get x;
+  int get y;
 
   /// Gets the area of a [Rect] whose corners are (0, 0) and this Vec.
   ///
@@ -234,6 +230,19 @@ class Vec {
   Vec offsetY(int y) => Vec(x, this.y + y);
 
   @override
+  String toString() => '$x, $y';
+}
+
+/// A two-dimensional point with integer coordinates.
+class Vec with VecMixin {
+  final int x;
+  final int y;
+
+  static const zero = Vec(0, 0);
+
+  const Vec(this.x, this.y);
+
+  @override
   bool operator ==(Object other) {
     if (other is! Vec) return false;
     return x == other.x && y == other.y;
@@ -250,7 +259,4 @@ class Vec {
     // https://en.wikipedia.org/wiki/Pairing_function
     return (a + b) * (a + b + 1) ~/ 2 + b;
   }
-
-  @override
-  String toString() => '$x, $y';
 }

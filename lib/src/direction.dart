@@ -1,15 +1,18 @@
 import 'vec.dart';
 
-class Direction extends Vec {
-  static const none = Direction(0, 0);
-  static const n = Direction(0, -1);
-  static const ne = Direction(1, -1);
-  static const e = Direction(1, 0);
-  static const se = Direction(1, 1);
-  static const s = Direction(0, 1);
-  static const sw = Direction(-1, 1);
-  static const w = Direction(-1, 0);
-  static const nw = Direction(-1, -1);
+enum Direction with VecMixin implements Vec {
+  none(0, 0),
+  n(0, -1),
+  ne(1, -1),
+  e(1, 0),
+  se(1, 1),
+  s(0, 1),
+  sw(-1, 1),
+  w(-1, 0),
+  nw(-1, -1);
+
+  final int x;
+  final int y;
 
   /// The eight cardinal and intercardinal directions.
   static const all = [n, ne, e, se, s, sw, w, nw];
@@ -21,156 +24,78 @@ class Direction extends Vec {
   /// southwest and southeast.
   static const intercardinal = [ne, se, sw, nw];
 
-  const Direction(int x, int y) : super(x, y);
+  const Direction(this.x, this.y);
 
-  Direction get rotateLeft45 {
-    switch (this) {
-      case none:
-        return none;
-      case n:
-        return nw;
-      case ne:
-        return n;
-      case e:
-        return ne;
-      case se:
-        return e;
-      case s:
-        return se;
-      case sw:
-        return s;
-      case w:
-        return sw;
-      case nw:
-        return w;
-    }
+  Direction get rotateLeft45 => switch (this) {
+        none => none,
+        n => nw,
+        ne => n,
+        e => ne,
+        se => e,
+        s => se,
+        sw => s,
+        w => sw,
+        nw => w,
+      };
 
-    throw "unreachable";
-  }
+  Direction get rotateRight45 => switch (this) {
+        none => none,
+        n => ne,
+        ne => e,
+        e => se,
+        se => s,
+        s => sw,
+        sw => w,
+        w => nw,
+        nw => n,
+      };
 
-  Direction get rotateRight45 {
-    switch (this) {
-      case none:
-        return none;
-      case n:
-        return ne;
-      case ne:
-        return e;
-      case e:
-        return se;
-      case se:
-        return s;
-      case s:
-        return sw;
-      case sw:
-        return w;
-      case w:
-        return nw;
-      case nw:
-        return n;
-    }
+  Direction get rotateLeft90 => switch (this) {
+        none => none,
+        n => w,
+        ne => nw,
+        e => n,
+        se => ne,
+        s => e,
+        sw => se,
+        w => s,
+        nw => sw,
+      };
 
-    throw "unreachable";
-  }
+  Direction get rotateRight90 => switch (this) {
+        none => none,
+        n => e,
+        ne => se,
+        e => s,
+        se => sw,
+        s => w,
+        sw => nw,
+        w => n,
+        nw => ne,
+      };
 
-  Direction get rotateLeft90 {
-    switch (this) {
-      case none:
-        return none;
-      case n:
-        return w;
-      case ne:
-        return nw;
-      case e:
-        return n;
-      case se:
-        return ne;
-      case s:
-        return e;
-      case sw:
-        return se;
-      case w:
-        return s;
-      case nw:
-        return sw;
-    }
-
-    throw "unreachable";
-  }
-
-  Direction get rotateRight90 {
-    switch (this) {
-      case none:
-        return none;
-      case n:
-        return e;
-      case ne:
-        return se;
-      case e:
-        return s;
-      case se:
-        return sw;
-      case s:
-        return w;
-      case sw:
-        return nw;
-      case w:
-        return n;
-      case nw:
-        return ne;
-    }
-
-    throw "unreachable";
-  }
-
-  Direction get rotate180 {
-    switch (this) {
-      case none:
-        return none;
-      case n:
-        return s;
-      case ne:
-        return sw;
-      case e:
-        return w;
-      case se:
-        return nw;
-      case s:
-        return n;
-      case sw:
-        return ne;
-      case w:
-        return e;
-      case nw:
-        return se;
-    }
-
-    throw "unreachable";
-  }
+  Direction get rotate180 => switch (this) {
+        none => none,
+        n => s,
+        ne => sw,
+        e => w,
+        se => nw,
+        s => n,
+        sw => ne,
+        w => e,
+        nw => se,
+      };
 
   @override
-  String toString() {
-    switch (this) {
-      case none:
-        return "none";
-      case n:
-        return "n";
-      case ne:
-        return "ne";
-      case e:
-        return "e";
-      case se:
-        return "se";
-      case s:
-        return "s";
-      case sw:
-        return "sw";
-      case w:
-        return "w";
-      case nw:
-        return "nw";
-    }
-
-    throw "unreachable";
-  }
+  String toString() => switch (this) {
+        none => "none",
+        n => "n",
+        ne => "ne",
+        e => "e",
+        se => "se",
+        s => "s",
+        sw => "sw",
+        w => "w",
+        nw => "nw",
+      };
 }

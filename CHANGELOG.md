@@ -12,10 +12,9 @@ Revamp `Circle`:
 
 Revamp `Direction` and `Vec`:
 
-*   Get rid of `VecBase` and make `Direction` directly extend `Vec` now that
-    Dart 3.0 allows types with non-primitive equality in switch cases.
-*   `Direction` has value semantics and is equal to `Vec` instances with the
-    same coordinates.
+*   Make `Direction` an enum so that switches on it provide better
+    exhaustiveness checking.
+*   Turn `VecBase` into `VecMixin`.
 
 ## 1.0.0
 
