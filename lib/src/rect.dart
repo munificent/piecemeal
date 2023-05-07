@@ -156,25 +156,19 @@ class Rect extends IterableBase<Vec> {
   /// length that a corridor would have to be to go from one Rect to the other.
   /// If the two Rects are adjacent, returns zero. If they overlap, returns -1.
   int distanceTo(Rect other) {
-    int vertical;
-    if (top >= other.bottom) {
-      vertical = top - other.bottom;
-    } else if (bottom <= other.top) {
-      vertical = other.top - bottom;
-    } else {
-      vertical = -1;
-    }
+    var vertical = switch (null) {
+      _ when top >= other.bottom => top - other.bottom,
+      _ when bottom <= other.top => other.top - bottom,
+      _ => -1
+    };
 
-    int horizontal;
-    if (left >= other.right) {
-      horizontal = left - other.right;
-    } else if (right <= other.left) {
-      horizontal = other.left - right;
-    } else {
-      horizontal = -1;
-    }
+    var horizontal = switch (null) {
+      _ when left >= other.right => left - other.right,
+      _ when right <= other.left => other.left - right,
+      _ => -1,
+    };
 
-    if ((vertical == -1) && (horizontal == -1)) return -1;
+    if (vertical == -1 && horizontal == -1) return -1;
     if (vertical == -1) return horizontal;
     if (horizontal == -1) return vertical;
     return horizontal + vertical;
@@ -182,7 +176,7 @@ class Rect extends IterableBase<Vec> {
 
   /// Iterates over the points along the edge of the Rect.
   Iterable<Vec> trace() {
-    if ((width > 1) && (height > 1)) {
+    if (width > 1 && height > 1) {
       // TODO(bob): Implement an iterator class here if building the list is
       // slow.
       // Trace all four sides.
@@ -199,10 +193,10 @@ class Rect extends IterableBase<Vec> {
       }
 
       return result;
-    } else if ((width > 1) && (height == 1)) {
+    } else if (width > 1 && height == 1) {
       // A single row.
       return Rect.row(left, top, width);
-    } else if ((height >= 1) && (width == 1)) {
+    } else if (height >= 1 && width == 1) {
       // A single column, or one unit
       return Rect.column(left, top, height);
     }

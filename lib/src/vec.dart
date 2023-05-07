@@ -56,45 +56,21 @@ mixin VecMixin {
   ///         /  '  |  '  \
   ///       sw -2.0   2.0  se
   ///               s
-  Direction get nearestDirection {
-    if (x == 0) {
-      if (y < 0) {
-        return Direction.n;
-      } else if (y == 0) {
-        return Direction.none;
-      } else {
-        return Direction.s;
-      }
-    }
-
-    var slope = y / x;
-
-    if (x < 0) {
-      if (slope >= 2.0) {
-        return Direction.n;
-      } else if (slope >= 0.5) {
-        return Direction.nw;
-      } else if (slope >= -0.5) {
-        return Direction.w;
-      } else if (slope >= -2.0) {
-        return Direction.sw;
-      } else {
-        return Direction.s;
-      }
-    } else {
-      if (slope >= 2.0) {
-        return Direction.s;
-      } else if (slope >= 0.5) {
-        return Direction.se;
-      } else if (slope >= -0.5) {
-        return Direction.e;
-      } else if (slope >= -2.0) {
-        return Direction.ne;
-      } else {
-        return Direction.n;
-      }
-    }
-  }
+  Direction get nearestDirection => switch ((x, y)) {
+        (< 0, _) when y / x >= 2.0 => Direction.n,
+        (< 0, _) when y / x >= 0.5 => Direction.nw,
+        (< 0, _) when y / x >= -0.5 => Direction.w,
+        (< 0, _) when y / x >= -2.0 => Direction.sw,
+        (< 0, _) => Direction.s,
+        (> 0, _) when y / x >= 2.0 => Direction.s,
+        (> 0, _) when y / x >= 0.5 => Direction.se,
+        (> 0, _) when y / x >= -0.5 => Direction.e,
+        (> 0, _) when y / x >= -2.0 => Direction.ne,
+        (> 0, _) => Direction.n,
+        (_, < 0) => Direction.n,
+        (_, > 0) => Direction.s,
+        (_, _) => Direction.none,
+      };
 
   /// The eight Vecs surrounding this one to the north, south, east, and west
   /// and points in between.
@@ -122,15 +98,11 @@ mixin VecMixin {
   ///  *  If [other] is an [int], adds that value to both coordinates.
   ///
   /// Any other type is an error.
-  Vec operator +(Object other) {
-    if (other is Vec) {
-      return Vec(x + other.x, y + other.y);
-    } else if (other is int) {
-      return Vec(x + other, y + other);
-    }
-
-    throw ArgumentError("Operand must be an int or Vec.");
-  }
+  Vec operator +(Object other) => switch (other) {
+        Vec _ => Vec(x + other.x, y + other.y),
+        int _ => Vec(x + other, y + other),
+        _ => throw ArgumentError("Operand must be an int or Vec.")
+      };
 
   /// Substracts [other] from this Vec.
   ///
@@ -139,61 +111,41 @@ mixin VecMixin {
   ///  *  If [other] is an [int], subtracts that value from both coordinates.
   ///
   /// Any other type is an error.
-  Vec operator -(Object other) {
-    if (other is Vec) {
-      return Vec(x - other.x, y - other.y);
-    } else if (other is int) {
-      return Vec(x - other, y - other);
-    }
-
-    throw ArgumentError("Operand must be an int or Vec.");
-  }
+  Vec operator -(Object other) => switch (other) {
+        Vec _ => Vec(x - other.x, y - other.y),
+        int _ => Vec(x - other, y - other),
+        _ => throw ArgumentError("Operand must be an int or Vec.")
+      };
 
   /// Returns `true` if the magnitude of this vector is greater than [other].
-  bool operator >(Object other) {
-    if (other is Vec) {
-      return lengthSquared > other.lengthSquared;
-    } else if (other is num) {
-      return lengthSquared > other * other;
-    }
-
-    throw ArgumentError("Operand must be an int or Vec.");
-  }
+  bool operator >(Object other) => switch (other) {
+        Vec _ => lengthSquared > other.lengthSquared,
+        num _ => lengthSquared > other * other,
+        _ => throw ArgumentError("Operand must be a number or Vec.")
+      };
 
   /// Returns `true` if the magnitude of this vector is greater than or equal
   /// to [other].
-  bool operator >=(Object other) {
-    if (other is Vec) {
-      return lengthSquared >= other.lengthSquared;
-    } else if (other is num) {
-      return lengthSquared >= other * other;
-    }
-
-    throw ArgumentError("Operand must be an int or Vec.");
-  }
+  bool operator >=(Object other) => switch (other) {
+        Vec _ => lengthSquared >= other.lengthSquared,
+        num _ => lengthSquared >= other * other,
+        _ => throw ArgumentError("Operand must be a number or Vec.")
+      };
 
   /// Returns `true` if the magnitude of this vector is less than [other].
-  bool operator <(Object other) {
-    if (other is Vec) {
-      return lengthSquared < other.lengthSquared;
-    } else if (other is num) {
-      return lengthSquared < other * other;
-    }
-
-    throw ArgumentError("Operand must be an int or Vec.");
-  }
+  bool operator <(Object other) => switch (other) {
+        Vec _ => lengthSquared < other.lengthSquared,
+        num _ => lengthSquared < other * other,
+        _ => throw ArgumentError("Operand must be a number or Vec.")
+      };
 
   /// Returns `true` if the magnitude of this vector is less than or equal to
   /// [other].
-  bool operator <=(Object other) {
-    if (other is Vec) {
-      return lengthSquared <= other.lengthSquared;
-    } else if (other is num) {
-      return lengthSquared <= other * other;
-    }
-
-    throw ArgumentError("Operand must be an int or Vec.");
-  }
+  bool operator <=(Object other) => switch (other) {
+        Vec _ => lengthSquared <= other.lengthSquared,
+        num _ => lengthSquared <= other * other,
+        _ => throw ArgumentError("Operand must be a number or Vec.")
+      };
 
   /// Returns `true` if [pos] is within a rectangle from (0,0) to this vector
   /// (half-inclusive).
