@@ -7,3 +7,8 @@ dev_dependencies:
   test: any
 environment:
   sdk: "^3.0.0"
+topics:
+  - game
+  - math
+  - 2d
+  - random
