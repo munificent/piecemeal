@@ -11,7 +11,9 @@ enum Direction with VecMixin implements Vec {
   w(-1, 0),
   nw(-1, -1);
 
+  @override
   final int x;
+  @override
   final int y;
 
   /// The eight cardinal and intercardinal directions.
@@ -27,75 +29,75 @@ enum Direction with VecMixin implements Vec {
   const Direction(this.x, this.y);
 
   Direction get rotateLeft45 => switch (this) {
-        none => none,
-        n => nw,
-        ne => n,
-        e => ne,
-        se => e,
-        s => se,
-        sw => s,
-        w => sw,
-        nw => w,
-      };
+    none => none,
+    n => nw,
+    ne => n,
+    e => ne,
+    se => e,
+    s => se,
+    sw => s,
+    w => sw,
+    nw => w,
+  };
 
   Direction get rotateRight45 => switch (this) {
-        none => none,
-        n => ne,
-        ne => e,
-        e => se,
-        se => s,
-        s => sw,
-        sw => w,
-        w => nw,
-        nw => n,
-      };
+    none => none,
+    n => ne,
+    ne => e,
+    e => se,
+    se => s,
+    s => sw,
+    sw => w,
+    w => nw,
+    nw => n,
+  };
 
   Direction get rotateLeft90 => switch (this) {
-        none => none,
-        n => w,
-        ne => nw,
-        e => n,
-        se => ne,
-        s => e,
-        sw => se,
-        w => s,
-        nw => sw,
-      };
+    none => none,
+    n => w,
+    ne => nw,
+    e => n,
+    se => ne,
+    s => e,
+    sw => se,
+    w => s,
+    nw => sw,
+  };
 
   Direction get rotateRight90 => switch (this) {
-        none => none,
-        n => e,
-        ne => se,
-        e => s,
-        se => sw,
-        s => w,
-        sw => nw,
-        w => n,
-        nw => ne,
-      };
+    none => none,
+    n => e,
+    ne => se,
+    e => s,
+    se => sw,
+    s => w,
+    sw => nw,
+    w => n,
+    nw => ne,
+  };
 
   Direction get rotate180 => switch (this) {
-        none => none,
-        n => s,
-        ne => sw,
-        e => w,
-        se => nw,
-        s => n,
-        sw => ne,
-        w => e,
-        nw => se,
-      };
+    none => none,
+    n => s,
+    ne => sw,
+    e => w,
+    se => nw,
+    s => n,
+    sw => ne,
+    w => e,
+    nw => se,
+  };
 
   @override
   String toString() => switch (this) {
-        none => "none",
-        n => "n",
-        ne => "ne",
-        e => "e",
-        se => "se",
-        s => "s",
-        sw => "sw",
-        w => "w",
-        nw => "nw",
-      };
+    none => "none",
+    n => "n",
+    ne => "ne",
+    e => "e",
+    se => "se",
+    s => "s",
+    sw => "sw",
+    w => "w",
+    nw => "nw",
+  };
 }

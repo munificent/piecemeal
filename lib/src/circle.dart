@@ -64,13 +64,17 @@ class _CircleIterator implements Iterator<Vec> {
 
   factory _CircleIterator(Circle circle, {required bool edge}) {
     var size = circle.radius + circle.radius + 1;
-    var bounds = Rect(circle.center.x - circle.radius,
-        circle.center.y - circle.radius, size, size);
+    var bounds = Rect(
+      circle.center.x - circle.radius,
+      circle.center.y - circle.radius,
+      size,
+      size,
+    );
     return _CircleIterator._(circle, bounds.iterator, edge: edge);
   }
 
   _CircleIterator._(this._circle, this._boundsIterator, {required bool edge})
-      : _edge = edge;
+    : _edge = edge;
 
   @override
   bool moveNext() {

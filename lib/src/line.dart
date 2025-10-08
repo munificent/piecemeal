@@ -65,11 +65,23 @@ class _LineIterator implements Iterator<Vec> {
     }
 
     return _LineIterator._(
-        start, 0, primary, secondary, primaryStep, secondaryStep);
+      start,
+      0,
+      primary,
+      secondary,
+      primaryStep,
+      secondaryStep,
+    );
   }
 
-  _LineIterator._(this._current, this._error, this._primary, this._secondary,
-      this._primaryStep, this._secondaryStep);
+  _LineIterator._(
+    this._current,
+    this._error,
+    this._primary,
+    this._secondary,
+    this._primaryStep,
+    this._secondaryStep,
+  );
 
   /// Always returns `true` to allow a line to overshoot the end point. Make
   /// sure you terminate iteration yourself.

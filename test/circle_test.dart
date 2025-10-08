@@ -23,8 +23,10 @@ void main() {
       var circlePoints = [...circle];
       var edgePoints = [...circle.edge];
 
-      void testPoints(String label,
-          void Function(Vec pos, bool inCircle, bool inEdge) body) {
+      void testPoints(
+        String label,
+        void Function(Vec pos, bool inCircle, bool inEdge) body,
+      ) {
         test(label, () {
           for (var y = 0; y < rows.length; y++) {
             var row = rows[y];
@@ -38,41 +40,65 @@ void main() {
 
       testPoints('contains()', (Vec pos, bool inCircle, bool inEdge) {
         if (inCircle) {
-          expect(circle.contains(pos), isTrue,
-              reason: 'Expected $pos to be in circle but was not.');
+          expect(
+            circle.contains(pos),
+            isTrue,
+            reason: 'Expected $pos to be in circle but was not.',
+          );
         } else {
-          expect(circle.contains(pos), isFalse,
-              reason: 'Expected $pos to not be in circle but was.');
+          expect(
+            circle.contains(pos),
+            isFalse,
+            reason: 'Expected $pos to not be in circle but was.',
+          );
         }
       });
 
       testPoints('isEdge()', (Vec pos, bool inCircle, bool inEdge) {
         if (inEdge) {
-          expect(circle.isEdge(pos), isTrue,
-              reason: 'Expected $pos to be in edge but was not.');
+          expect(
+            circle.isEdge(pos),
+            isTrue,
+            reason: 'Expected $pos to be in edge but was not.',
+          );
         } else {
-          expect(circle.isEdge(pos), isFalse,
-              reason: 'Expected $pos to not be in edge but was.');
+          expect(
+            circle.isEdge(pos),
+            isFalse,
+            reason: 'Expected $pos to not be in edge but was.',
+          );
         }
       });
 
       testPoints('iterated contents', (Vec pos, bool inCircle, bool inEdge) {
         if (inCircle) {
-          expect(circlePoints.contains(pos), isTrue,
-              reason: 'Expected $pos to be in iterated contents but was not.');
+          expect(
+            circlePoints.contains(pos),
+            isTrue,
+            reason: 'Expected $pos to be in iterated contents but was not.',
+          );
         } else {
-          expect(circlePoints.contains(pos), isFalse,
-              reason: 'Expected $pos to not be in iterated contents but was.');
+          expect(
+            circlePoints.contains(pos),
+            isFalse,
+            reason: 'Expected $pos to not be in iterated contents but was.',
+          );
         }
       });
 
       testPoints('iterated edge', (Vec pos, bool inCircle, bool inEdge) {
         if (inEdge) {
-          expect(edgePoints.contains(pos), isTrue,
-              reason: 'Expected $pos to be in iterated edge but was not.');
+          expect(
+            edgePoints.contains(pos),
+            isTrue,
+            reason: 'Expected $pos to be in iterated edge but was not.',
+          );
         } else {
-          expect(edgePoints.contains(pos), isFalse,
-              reason: 'Expected $pos to not be in iterated edge but was.');
+          expect(
+            edgePoints.contains(pos),
+            isFalse,
+            reason: 'Expected $pos to not be in iterated edge but was.',
+          );
         }
       });
     });
@@ -103,29 +129,11 @@ void generateTestData() {
 
 const _circles = [
   // Radius 0:
-  [
-    '...',
-    '.*.',
-    '...',
-  ],
+  ['...', '.*.', '...'],
   // Radius 1:
-  [
-    '.....',
-    '.***.',
-    '.*O*.',
-    '.***.',
-    '.....',
-  ],
+  ['.....', '.***.', '.*O*.', '.***.', '.....'],
   // Radius 2:
-  [
-    '.......',
-    '..***..',
-    '.*OOO*.',
-    '.*OOO*.',
-    '.*OOO*.',
-    '..***..',
-    '.......',
-  ],
+  ['.......', '..***..', '.*OOO*.', '.*OOO*.', '.*OOO*.', '..***..', '.......'],
   // Radius 3:
   [
     '.........',

@@ -69,7 +69,7 @@ class Rng {
   /// down to zero.
   int countFromFloat(double range) {
     var count = range.floor();
-    if (rng.float(1.0) < range - count) count++;
+    if (float(1.0) < range - count) count++;
     return count;
   }
 
@@ -82,8 +82,8 @@ class Rng {
     double u, v, lengthSquared;
 
     do {
-      u = rng.float(-1.0, 1.0);
-      v = rng.float(-1.0, 1.0);
+      u = float(-1.0, 1.0);
+      v = float(-1.0, 1.0);
       lengthSquared = u * u + v * v;
     } while (lengthSquared >= 1.0);
 
@@ -115,7 +115,7 @@ class Rng {
   /// This may not preserve the order of items in the list, but is faster than
   /// [takeOrdered].
   T take<T>(List<T> items) {
-    var index = rng.range(items.length);
+    var index = range(items.length);
     var result = items[index];
 
     // Replace the removed item with the last item in the list and then discard

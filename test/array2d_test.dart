@@ -37,15 +37,16 @@ void main() {
       expect(array.get(1, 2), equals(102));
 
       expect(
-          calls,
-          equals([
-            Vec(0, 0),
-            Vec(1, 0),
-            Vec(0, 1),
-            Vec(1, 1),
-            Vec(0, 2),
-            Vec(1, 2),
-          ]));
+        calls,
+        equals([
+          Vec(0, 0),
+          Vec(1, 0),
+          Vec(0, 1),
+          Vec(1, 1),
+          Vec(0, 2),
+          Vec(1, 2),
+        ]),
+      );
     });
 
     test("empty", () {

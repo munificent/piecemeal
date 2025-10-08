@@ -95,12 +95,12 @@ class Rect extends IterableBase<Vec> {
   const Rect.posAndSize(this.pos, this.size);
 
   Rect.leftTopRightBottom(int left, int top, int right, int bottom)
-      : pos = Vec(left, top),
-        size = Vec(right - left, bottom - top);
+    : pos = Vec(left, top),
+      size = Vec(right - left, bottom - top);
 
   Rect(int x, int y, int width, int height)
-      : pos = Vec(x, y),
-        size = Vec(width, height);
+    : pos = Vec(x, y),
+      size = Vec(width, height);
 
   /// Creates a new rectangle a single row in height, as wide as [size],
   /// with its top left corner at [pos].
@@ -114,8 +114,12 @@ class Rect extends IterableBase<Vec> {
   String toString() => '($pos)-($size)';
 
   Rect inflate(int distance) {
-    return Rect(x - distance, y - distance, width + (distance * 2),
-        height + (distance * 2));
+    return Rect(
+      x - distance,
+      y - distance,
+      width + (distance * 2),
+      height + (distance * 2),
+    );
   }
 
   Rect offset(int x, int y) => Rect(this.x + x, this.y + y, width, height);
@@ -159,7 +163,7 @@ class Rect extends IterableBase<Vec> {
     var vertical = switch (null) {
       _ when top >= other.bottom => top - other.bottom,
       _ when bottom <= other.top => other.top - bottom,
-      _ => -1
+      _ => -1,
     };
 
     var horizontal = switch (null) {
@@ -214,9 +218,7 @@ class RectIterator implements Iterator<Vec> {
   int _x;
   int _y;
 
-  RectIterator(this._rect)
-      : _x = _rect.x - 1,
-        _y = _rect.y;
+  RectIterator(this._rect) : _x = _rect.x - 1, _y = _rect.y;
 
   @override
   Vec get current => Vec(_x, _y);

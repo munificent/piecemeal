@@ -23,16 +23,16 @@ class Array2D<T> extends IterableBase<T> {
   /// Creates a new array with [width], [height] elements initialized to
   /// [value].
   Array2D(int width, int height, T value)
-      : bounds = Rect(0, 0, width, height),
-        _elements = List<T>.filled(width * height, value);
+    : bounds = Rect(0, 0, width, height),
+      _elements = List<T>.filled(width * height, value);
 
   /// Creates a new array with [width], [height] elements initialized to the
   /// result of calling [generator] on each element.
   Array2D.generated(int width, int height, T Function(Vec) generator)
-      : bounds = Rect(0, 0, width, height),
-        _elements = width * height > 0
-            ? List<T>.filled(width * height, generator(Vec.zero))
-            : List<T>.empty() {
+    : bounds = Rect(0, 0, width, height),
+      _elements = width * height > 0
+          ? List<T>.filled(width * height, generator(Vec.zero))
+          : List<T>.empty() {
     // Don't call generator() on the first cell twice.
     for (var x = 1; x < width; x++) {
       set(x, 0, generator(Vec(x, 0)));
