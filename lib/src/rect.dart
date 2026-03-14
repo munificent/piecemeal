@@ -111,6 +111,13 @@ class Rect extends IterableBase<Vec> {
   Rect.column(int x, int y, int size) : this(x, y, 1, size);
 
   @override
+  int get hashCode => Object.hash(pos, size);
+
+  @override
+  bool operator ==(Object other) =>
+      other is Rect && pos == other.pos && size == other.size;
+
+  @override
   String toString() => '($pos)-($size)';
 
   Rect inflate(int distance) {
@@ -209,8 +216,6 @@ class Rect extends IterableBase<Vec> {
     // trace.
     return const [];
   }
-
-  // TODO: Equality operator and hashCode.
 }
 
 class RectIterator implements Iterator<Vec> {

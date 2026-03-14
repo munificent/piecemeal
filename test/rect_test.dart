@@ -137,6 +137,16 @@ void main() {
     expect(rect.clamp(Vec(20, 30)), equals(Vec(4, 6)));
   });
 
+  test("equality", () {
+    expect(Rect(1, 2, 3, 4) == Rect(1, 2, 3, 4), isTrue);
+    expect(Rect(1, 2, 3, 4) == Rect(5, 2, 3, 4), isFalse);
+    expect(Rect(1, 2, 3, 4) == Rect(1, 5, 3, 4), isFalse);
+    expect(Rect(1, 2, 3, 4) == Rect(1, 2, 5, 5), isFalse);
+
+    // Other types.
+    expect(Rect(1, 2, 3, 4) == 0 as Object?, isFalse);
+  });
+
   // TODO: iterator.
   // TODO: distanceTo().
   // TODO: trace().

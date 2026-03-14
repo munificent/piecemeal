@@ -1,9 +1,13 @@
+## 3.0.0
+
+*   Give `Rect` value semantics by implementing `==` and `hashCode`.
+
 ## 2.0.1
 
-Fix bugs in the `Rng` class where it would sometimes internally access the
-global `rng` instead of its own random state. This means that calling
-`setSeed()` on an `Rng` (other than the global `rng` one) would sometimes not
-deterministically control the resulting output.
+*   Fix bugs in the `Rng` class where it would sometimes internally access the
+    global `rng` instead of its own random state. This means that calling
+    `setSeed()` on an `Rng` (other than the global `rng` one) would sometimes
+    not deterministically control the resulting output.
 
 ## 2.0.0
 
